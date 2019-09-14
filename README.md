@@ -1,2 +1,2 @@
-# netcentricbomb
-Frontend of netcentric game
+# Netcentricbomb
+Just a frontend of netcentric game
