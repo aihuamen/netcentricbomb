@@ -32,5 +32,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "Just a frontend of netcentric game >>>>>>> 9c46a24be5062faa71c4d354412f74bcf27e2572",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aihuamen/netcentricbomb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aihuamen/netcentricbomb/issues"
+  },
+  "homepage": "https://github.com/aihuamen/netcentricbomb#readme"
 }
