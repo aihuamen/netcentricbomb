@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-import React, { useState, useEffect } from 'react';
-import { subscribeToTimer } from './api';
->>>>>>> master
+import React, { useState, useEffect } from "react";
+import { subscribeToTimer } from "./api";
 
 interface TheBox {
   isBomb?: boolean;
@@ -95,6 +91,7 @@ const Board: React.FC = () => {
   return (
     <div>
       {bomb}
+      {/* FIXME Fix this shit */}
       <button
         onClick={() => {
           setBomb(generateBoard);
@@ -108,22 +105,17 @@ const Board: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const [timestamp,setTimestamp] = useState('no time stamp yet')
+  const [timestamp, setTimestamp] = useState("no time stamp yet");
 
-  useEffect(() => {subscribeToTimer((err:any,interval:string) => setTimestamp(interval))},[setTimestamp])
+  useEffect(() => {
+    subscribeToTimer((err: any, interval: string) => setTimestamp(interval));
+  }, [setTimestamp]);
 
   return (
-<<<<<<< HEAD
     <div className="App">
       <header className="App-header">
         <h1>My Mines</h1>
       </header>
-=======
-    <div className="App" >
-      <h1 className="App-header">
-        Fuck Bomb
-      </h1>
->>>>>>> master
       <body className="App-body">
         <div>
           <Board />
