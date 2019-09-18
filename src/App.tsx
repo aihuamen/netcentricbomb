@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { subscribeToTimer } from "./api";
-import {Board} from "./Board"
+import { Board } from "./Board";
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = useState("no time stamp yet");
