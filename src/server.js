@@ -1,5 +1,6 @@
 const io = require("socket.io")();
 const port = 8000;
+const { createBoard, calculateScore } = require("../src/utils/game");
 let board = null;
 let bStatus = 0;
 
@@ -8,6 +9,8 @@ console.log("listening on port ", port);
 
 io.on("connection", socket => {
   console.log("Connected");
+
+  const board = createBoard();
 
   socket.on("subscribeToTimer", interval => {
     console.log("client is subscribing to timer with interval ", interval);
