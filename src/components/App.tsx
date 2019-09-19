@@ -13,6 +13,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <h1>My Mines</h1>
+        <hr></hr>
       </header>
       <body className="App-body">
         <div>

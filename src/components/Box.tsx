@@ -7,15 +7,19 @@ interface TheBox {
   
   const Box: React.FC<TheBox> = props => {
     const [pic, setPic] = useState(process.env.PUBLIC_URL + "/YeeInfobox.png");
-  
+    const [isBomb, setBomb] = useState(0)
+    
     const togglePic = () => {
-      /*const yeey = props.isBomb
-        ? process.env.PUBLIC_URL + "/yajuu.jpg"
+      chooseBox(props.pos , (err:any,real:number) => setBomb(real))
+
+      const resPic = (isBomb === 1) ? 
+         process.env.PUBLIC_URL + "/yajuu.jpg"
         : process.env.PUBLIC_URL + "/pepe.jpg";
-      setPic(yeey);*/
+        
+      setPic(resPic);
     };
   
-    return <img src={pic} onClick={chooseBox}  alt="Yee" />;
+    return <img src={pic} onClick={togglePic}  alt="Yee" />;
   };
   
   Box.defaultProps = {
