@@ -1,24 +1,25 @@
 import React, { useState } from "react";
+import {chooseBox} from "../api"
 
 interface TheBox {
-    isBomb?: boolean;
+    pos:number;
   }
   
   const Box: React.FC<TheBox> = props => {
     const [pic, setPic] = useState(process.env.PUBLIC_URL + "/YeeInfobox.png");
   
     const togglePic = () => {
-      const yeey = props.isBomb
+      /*const yeey = props.isBomb
         ? process.env.PUBLIC_URL + "/yajuu.jpg"
         : process.env.PUBLIC_URL + "/pepe.jpg";
-      setPic(yeey);
+      setPic(yeey);*/
     };
   
-    return <img src={pic} onClick={togglePic} alt="Yee" />;
+    return <img src={pic} onClick={chooseBox}  alt="Yee" />;
   };
   
   Box.defaultProps = {
-    isBomb: false
+    pos:69,
   };
 
   export {Box}

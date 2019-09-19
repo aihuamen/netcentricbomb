@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { subscribeToTimer } from "./api";
+import { subscribeToTimer } from "../api";
 import { Board } from "./Board";
 
 const App: React.FC = () => {
