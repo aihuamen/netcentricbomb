@@ -4,13 +4,13 @@ const port = 8000;
 io.listen(port);
 console.log("listening on port ", port);
 
-io.on("connection", client => {
+io.on("connection", socket => {
   console.log("Connected");
 
-  client.on("subscribeToTimer", interval => {
+  socket.on("subscribeToTimer", interval => {
     console.log("client is subscribing to timer with interval ", interval);
     setInterval(() => {
-      client.emit("timer", "Yeet from server: " + new Date());
+      socket.emit("timer", "from server: " + new Date());
     }, interval);
   });
 });
