@@ -17,6 +17,7 @@ const App: React.FC = () => {
       </header>
       <body className="App-body">
         <div>
+          <div>Number of player : </div>
           <Board />
           {timestamp}
         </div>

@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import { chooseBox } from "../api";
+import React, { useState, useEffect } from "react";
+import { chooseBox, onResetBoard } from "../api";
 
 interface TheBox {
   pos: number;
 }
 
-const Box: React.FC<TheBox> = props => {
+export const Box: React.FC<TheBox> = ({pos=69}) => {
   const [pic, setPic] = useState(process.env.PUBLIC_URL + "/YeeInfobox.png");
-  const [isBomb, setBomb] = useState(0);
 
   const togglePic = () => {
-    chooseBox(props.pos, (err: any, real: number) => setBomb(real));
+    chooseBox(pos, (real: number) => {
 
-    const resPic =
-      isBomb === 1
+      const resPic = real
         ? process.env.PUBLIC_URL + "/yajuu.jpg"
         : process.env.PUBLIC_URL + "/pepe.jpg";
 
     setPic(resPic);
+    });
   };
+
+  useEffect(() => {
+    onResetBoard(() => {setPic(process.env.PUBLIC_URL + "/YeeInfobox.png")})
+  })
 
   return <img src={pic} onClick={togglePic} alt="Yee" />;
 };
 
-Box.defaultProps = {
-  pos: 69
-};
-
-export { Box };

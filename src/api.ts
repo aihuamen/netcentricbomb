@@ -1,23 +1,29 @@
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:8000');
+import openSocket from "socket.io-client";
+const socket = openSocket("http://localhost:8000");
 
-const subscribeToTimer = (callback:any) => {
-    socket.on('timer', (timestamp:string) => callback(null, timestamp));
-    //socket.on('message', ... => callback(null,...))
-    socket.emit('subscribeToTimer', 1000);
-    //socket.emit('sentMessage', ...) 
-}
+type Callback<T = any> = (err: any, result: T) => void;
 
-const resetBoard = (callback:any) => {
-    socket.on('newBoard', (bStatus:number) => callback(null, bStatus));
-    socket.emit('resetBoard');
-}
+export const subscribeToTimer = (callback: Callback) => {
+  socket.on("timer", (timestamp: string) => callback(null, timestamp));
+  //socket.on('message', ... => callback(null,...))
+  socket.emit("subscribeToTimer", 1000);
+  //socket.emit('sentMessage', ...)
+};
 
-const chooseBox = (pos:number,callback:any) => {
-    socket.emit("chooseBox",pos)
-    socket.on("checkBox",(real: number) => callback(null,real))
-}
+export const onResetBoard = (callback: Callback<number>) => {
+  socket.on("newBoard", (bStatus: number) => callback(null, bStatus));
+};
 
-export {subscribeToTimer}
-export {resetBoard}
-export {chooseBox}
+export const emitResetBoard = () => {
+  socket.emit("resetBoard");
+};
+
+export const chooseBox = (pos: number, callback: any) => {
+  socket.emit("chooseBox", pos, (result: number) => callback(result));
+};
+
+export const playerNumber = () => {
+  socket.on("playerNumber", (playerNumber: number) => {
+    console.log(playerNumber);
+  });
+};
