@@ -11,7 +11,7 @@ const createBoard = () => {
   for (i = 0; i < 6; i++) {
     board[arr[i]] = 1;
   }
-  console.log(board);
+  console.log(arr);
   return board;
 };
 
