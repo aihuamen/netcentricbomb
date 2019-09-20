@@ -11,8 +11,20 @@ console.log("listening on port ", port);
 io.on("connection", socket => {
   playerNumber = playerNumber + 1;
   console.log("Current player Online  : ", playerNumber);
-  socket.emit("playerNumber", playerNumber);
+ 
+  socket.on("updatePlayer", () => {
+    console.log("Here comes a new challenger")
+    setInterval(() => {
+      socket.emit("playerNumber", playerNumber);
+    },1000)
+  });
 
+  socket.on("updateRound", () => {
+    setInterval(() => {
+      socket.emit("updateRoundLaew", bStatus);
+    },1000)
+  });
+  
   socket.on("subscribeToTimer", interval => {
     console.log("client is subscribing to timer with interval ", interval);
     setInterval(() => {
@@ -29,7 +41,6 @@ io.on("connection", socket => {
 
   socket.on("chooseBox", (pos,cb) => {
     console.log("The box " + pos + " is chosen");
-    // 69
     cb(board[pos]);
   });
 

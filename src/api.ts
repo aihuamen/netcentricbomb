@@ -10,6 +10,15 @@ export const subscribeToTimer = (callback: Callback) => {
   //socket.emit('sentMessage', ...)
 };
 
+export const updatePlayer = () => {
+  socket.emit("updatePlayer");
+}
+
+export const updateRound = (callback: Callback<number>) => {
+  socket.on("updateRoundLaew", (bStatus: number) => callback(null, bStatus));
+  socket.emit("updateRoundPls");
+}
+
 export const onResetBoard = (callback: Callback<number>) => {
   socket.on("newBoard", (bStatus: number) => callback(null, bStatus));
 };

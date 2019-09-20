@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Box} from "./Box"
-import {onResetBoard, emitResetBoard} from "../api"
+import {onResetBoard, emitResetBoard, updateRound} from "../api"
 
 export const Board: React.FC = () => {
     const generateBoard = () => {
@@ -12,6 +12,7 @@ export const Board: React.FC = () => {
     const [round, setRound] = useState(1)
     
     useEffect(() => {
+      updateRound((err: any, bStatuss: number) => setRound(bStatuss))
       onResetBoard((err:any,bStatus:number) => setRound(bStatus))
     })
 
