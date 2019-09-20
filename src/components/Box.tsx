@@ -10,7 +10,7 @@ export const Box: React.FC<TheBox> = ({pos=69}) => {
 
   const togglePic = () => {
     chooseBox(pos, (real: number) => {
-
+      console.log(real)
       const resPic = real
         ? process.env.PUBLIC_URL + "/yajuu.jpg"
         : process.env.PUBLIC_URL + "/pepe.jpg";

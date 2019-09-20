@@ -27,9 +27,10 @@ io.on("connection", socket => {
     socket.emit("newBoard", bStatus);
   });
 
-  socket.on("chooseBox", pos => {
+  socket.on("chooseBox", (pos,cb) => {
     console.log("The box " + pos + " is chosen");
-    socket.emit("checkBox", board[pos]);
+    // 69
+    cb(board[pos]);
   });
 
   socket.on("disconnect", () => {

@@ -22,8 +22,6 @@ export const chooseBox = (pos: number, callback: any) => {
   socket.emit("chooseBox", pos, (result: number) => callback(result));
 };
 
-export const playerNumber = () => {
-  socket.on("playerNumber", (playerNumber: number) => {
-    console.log(playerNumber);
-  });
+export const playerNumber = (callback:Callback<number>) => {
+  socket.on("playerNumber", (playerNumber: number) => callback(null, playerNumber));
 };

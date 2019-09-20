@@ -7,6 +7,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/socket.io-client": "^1.4.32",
+    "nodemon": "^1.19.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
@@ -18,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:server": "nodemon src/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
