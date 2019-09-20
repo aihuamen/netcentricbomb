@@ -4,6 +4,7 @@ import {resetBoard} from "../api"
 
 const Board: React.FC = () => {
     const generateBoard = () => {
+      //Cr.SamuraiWarm
       return Array(6).fill(0).map((_,i) => (<div>{Array(6).fill(0).map((_,j) => <Box pos={6*i + j} />)}</div>))
     };
 
