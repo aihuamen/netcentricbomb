@@ -14,9 +14,12 @@ export const updatePlayer = () => {
   socket.emit("updatePlayer");
 }
 
-export const updateRound = (callback: Callback<number>) => {
-  socket.on("updateRoundLaew", (bStatus: number) => callback(null, bStatus));
+export const emitUpdateRound = () => {
   socket.emit("updateRoundPls");
+}
+
+export const onUpdateRound = (callback: Callback<number>) => {
+  socket.on("updateRoundLaew", (bStatus: number) => callback(null, bStatus));
 }
 
 export const onResetBoard = (callback: Callback<number>) => {

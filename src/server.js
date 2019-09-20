@@ -19,7 +19,7 @@ io.on("connection", socket => {
     },1000)
   });
 
-  socket.on("updateRound", () => {
+  socket.on("updateRoundPls", () => {
     setInterval(() => {
       socket.emit("updateRoundLaew", bStatus);
     },1000)
