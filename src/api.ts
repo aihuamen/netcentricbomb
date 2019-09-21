@@ -12,15 +12,15 @@ export const subscribeToTimer = (callback: Callback) => {
 
 export const updatePlayer = () => {
   socket.emit("updatePlayer");
-}
+};
 
 export const emitUpdateRound = () => {
   socket.emit("updateRoundPls");
-}
+};
 
 export const onUpdateRound = (callback: Callback<number>) => {
   socket.on("updateRoundLaew", (bStatus: number) => callback(null, bStatus));
-}
+};
 
 export const onResetBoard = (callback: Callback<number>) => {
   socket.on("newBoard", (bStatus: number) => callback(null, bStatus));
@@ -34,6 +34,12 @@ export const chooseBox = (pos: number, callback: any) => {
   socket.emit("chooseBox", pos, (result: number) => callback(result));
 };
 
-export const playerNumber = (callback:Callback<number>) => {
-  socket.on("playerNumber", (playerNumber: number) => callback(null, playerNumber));
+export const playerNumber = (callback: Callback<number>) => {
+  socket.on("playerNumber", (playerNumber: number) =>
+    callback(null, playerNumber)
+  );
+};
+
+export const scoreUpdate = () => {
+  socket.emit("scoreUpdate");
 };

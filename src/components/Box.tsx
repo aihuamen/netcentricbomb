@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { chooseBox, onResetBoard } from "../api";
+import { chooseBox, onResetBoard, scoreUpdate } from "../api";
 
 interface TheBox {
   pos: number;
 }
 
-export const Box: React.FC<TheBox> = ({pos=69}) => {
-  const [pic, setPic] = useState(process.env.PUBLIC_URL + "/YeeInfobox.png");
+export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
+  const [pic, setPic] = useState(process.env.PUBLIC_URL + "/unClick");
 
   const togglePic = () => {
     chooseBox(pos, (real: number) => {
-      console.log(real)
+      console.log(real);
       const resPic = real
-        ? process.env.PUBLIC_URL + "/yajuu.jpg"
-        : process.env.PUBLIC_URL + "/pepe.jpg";
+        ? process.env.PUBLIC_URL + "/bomb"
+        : process.env.PUBLIC_URL + "/tiles";
 
-    setPic(resPic);
+      if (real === 1) {
+        scoreUpdate();
+      }
+      setPic(resPic);
     });
   };
 
   useEffect(() => {
-    onResetBoard(() => {setPic(process.env.PUBLIC_URL + "/YeeInfobox.png")})
-  })
+    onResetBoard(() => {
+      setPic(process.env.PUBLIC_URL + "/unClick");
+    });
+  });
 
-  return <img src={pic} onClick={togglePic} alt="Yee" />;
+  return <img src={pic} onClick={togglePic} alt="Tiles" />;
 };
-
