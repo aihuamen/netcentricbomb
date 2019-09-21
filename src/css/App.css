@@ -1,0 +1,20 @@
+.App-header {
+  min-height: 10vh;
+  flex-direction: column;
+  justify-content: center;
+  font-size: calc(6px + 2vmin);
+}
+
+.App-game {
+  float: left;
+  width: 75%;
+  background-color: skyblue;
+}
+
+.App-chat {
+  text-align: center;
+  background-color: antiquewhite
+}
+
+
+

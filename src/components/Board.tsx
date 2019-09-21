@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Box} from "./Box"
 import {onResetBoard, emitResetBoard, emitUpdateRound, onUpdateRound} from "../api"
+import "../css/Board.css"
 
 export const Board: React.FC = () => {
     const generateBoard = () => {
@@ -19,9 +20,9 @@ export const Board: React.FC = () => {
 
     return (
       <div >
-      <h3>Round: {round}</h3>
+      <h2>Round: {round}</h2>
         {board}
-        <button
+        <button 
           onClick={() => {
             setBoard(generateBoard);
             emitResetBoard()
