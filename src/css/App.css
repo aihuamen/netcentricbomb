@@ -1,6 +1,6 @@
 .App-game {
   width: 70%;
-  background-color: rgb(190, 185, 177);
+  background-color: white;
   float: left;
   height: 100%;
   position: fixed;
@@ -31,9 +31,46 @@
 }
 
 .Chat-header {
-  height: 70px;
+  height: 10%;
   margin-top: -20px;
   padding-top: 20px;
   text-align: center;
-  background-color: rgb(150, 139, 127);
+  background-color: rgb(177, 177, 177);
+}
+
+.chat-form {
+  background-color: rebeccapurple;
+  height: 90%;
+}
+
+button {
+  cursor: pointer;
+  padding: 12px;
+  background: grey;
+  border: none;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: rgb(94, 94, 94);
+}
+
+button:disabled {
+  cursor: default;
+  background: #7c5cbf94;
+}
+
+input {
+  color: black;
+  width: 70%;
+  height: 25px;
+}
+
+.chat-form-submit {
+  background-color: rgb(177, 177, 177);
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 }

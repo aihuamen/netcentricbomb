@@ -26,11 +26,17 @@ const App: React.FC = () => {
         </div>
         <div className="App-chat">
           <header className="Chat-header">
-            <h2 style={{ color: "black" }}>
-             Online Player: {playNo}
-             </h2>
+            <h2 style={{ color: "black" }}>Online Player: {playNo}</h2>
           </header>
-          <div>&#x1F6B4; Bike for Dad</div>
+
+          <div className="chat-form">
+            <form id="form" className="chat-form-submit">
+              <input name="message" placeholder="Message"></input>
+              <button className="send" type="button">
+                Send
+              </button>
+            </form>
+          </div>
         </div>
       </body>
     </div>
