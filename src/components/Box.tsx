@@ -6,14 +6,14 @@ interface TheBox {
 }
 
 export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
-  const [pic, setPic] = useState(process.env.PUBLIC_URL + "/unClick");
+  const [pic, setPic] = useState(process.env.PUBLIC_URL + "image/unClick");
 
   const togglePic = () => {
     chooseBox(pos, (real: number) => {
       console.log(real);
       const resPic = real
-        ? process.env.PUBLIC_URL + "/bomb"
-        : process.env.PUBLIC_URL + "/tiles";
+        ? process.env.PUBLIC_URL + "image/bomb"
+        : process.env.PUBLIC_URL + "image/tiles";
 
       if (real === 1) {
         scoreUpdate();
@@ -24,7 +24,7 @@ export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
 
   useEffect(() => {
     onResetBoard(() => {
-      setPic(process.env.PUBLIC_URL + "/unClick");
+      setPic(process.env.PUBLIC_URL + "image/unClick");
     });
   });
 

@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <div className="App-chat">
           <h2>Chat here</h2>
           <p>Online Player: {playNo}</p>
-          <img src={process.env.PUBLIC_URL + "/tomnews.jpeg"} alt="tom" />
+          <img src={process.env.PUBLIC_URL + "image/tomnews.jpeg"} alt="tom" />
         </div>
       </body>
     </div>
