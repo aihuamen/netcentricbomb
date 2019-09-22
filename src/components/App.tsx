@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { subscribeToTimer, playerNumber, updatePlayer } from "../api";
 import { Board } from "./Board";
+import { Chat } from "./Chat"
 import "../css/App.css";
 
 const App: React.FC = () => {
@@ -28,15 +29,7 @@ const App: React.FC = () => {
           <header className="Chat-header">
             <h2 style={{ color: "black" }}>Online Player: {playNo}</h2>
           </header>
-
-          <div className="chat-form">
-            <form id="form" className="chat-form-submit">
-              <input name="message" placeholder="Message"></input>
-              <button className="send" type="button">
-                Send
-              </button>
-            </form>
-          </div>
+          <Chat />
         </div>
       </body>
     </div>

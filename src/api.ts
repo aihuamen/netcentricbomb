@@ -14,6 +14,10 @@ export const updatePlayer = () => {
   socket.emit("updatePlayer");
 };
 
+export const updateChat = () => {
+  socket.emit("updateChat");
+}
+
 export const emitUpdateRound = () => {
   socket.emit("updateRoundPls");
 };
@@ -30,14 +34,20 @@ export const emitResetBoard = () => {
   socket.emit("resetBoard");
 };
 
+export const emitChat = (word: string) => {
+  socket.emit("sendChatPls", word);
+}
+
+export const onChat = (callback: Callback<string[]>) => {
+  socket.on("sendChatLaew", (record: string[]) => callback(null, record));
+}
+
 export const chooseBox = (pos: number, callback: any) => {
   socket.emit("chooseBox", pos, (result: number) => callback(result));
 };
 
 export const playerNumber = (callback: Callback<number>) => {
-  socket.on("playerNumber", (playerNumber: number) =>
-    callback(null, playerNumber)
-  );
+  socket.on("playerNumber", (playerNumber: number) => callback(null, playerNumber));
 };
 
 export const scoreUpdate = () => {

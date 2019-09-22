@@ -4,6 +4,7 @@ const { createBoard, calculateScore } = require("../src/utils/game");
 let bStatus = 1;
 let board = createBoard();
 let playerNumber = 0;
+let chatRecord = [];
 
 io.listen(port);
 console.log("listening on port ", port);
@@ -19,6 +20,10 @@ io.on("connection", socket => {
       socket.emit("playerNumber", playerNumber);
     }, 1);
   });
+
+  socket.on("updateChat", () => {
+    socket.emit("sendChatLaew",chatRecord);
+  })
 
   socket.on("updateRoundPls", () => {
     setInterval(() => {
@@ -38,6 +43,12 @@ io.on("connection", socket => {
     board = createBoard();
     bStatus++;
     io.emit("newBoard", bStatus);
+  });
+
+  socket.on("sendChatPls", (word) => {
+    console.log(word + " is sent by someone");
+    chatRecord.push(word)
+    io.emit("sendChatLaew",chatRecord);
   });
 
   // NOTE When user select box
