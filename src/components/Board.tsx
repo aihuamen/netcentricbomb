@@ -32,7 +32,6 @@ export const Board: React.FC = () => {
       <h2>Round: {round}</h2>
       {board}
       <button
-        style={{ color: "white" }}
         onClick={() => {
           setBoard(generateBoard);
           emitResetBoard();

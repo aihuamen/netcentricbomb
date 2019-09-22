@@ -15,19 +15,21 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Find My Mines</h1>
-        <hr />
-      </header>
       <body className="App-body">
         <div className="App-game">
+          <header className="Game-header">
+            <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
+            <hr />
+          </header>
           <Board />
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">
-          <div className="header">
-            <h2 style={{ color: "black" }}> Online Player: {playNo}</h2>
-          </div>
+          <header className="Chat-header">
+            <h2 style={{ color: "black" }}>
+             Online Player: {playNo}
+             </h2>
+          </header>
           <div>1CHAT 2CHAT</div>
         </div>
       </body>
