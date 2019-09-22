@@ -25,9 +25,10 @@ const App: React.FC = () => {
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">
-          <h2>Chat here</h2>
-          <p>Online Player: {playNo}</p>
-          <img src={process.env.PUBLIC_URL + "image/tomnews.jpeg"} alt="tom" />
+          <div className="header">
+            <h2 style={{ color: "black" }}> Online Player: {playNo}</h2>
+          </div>
+          <div>1CHAT 2CHAT</div>
         </div>
       </body>
     </div>

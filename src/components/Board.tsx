@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {Box} from "./Box"
-import {onResetBoard, emitResetBoard, emitUpdateRound, onUpdateRound} from "../api"
-import "../css/Board.css"
+import { Box } from "./Box";
+import {
+  onResetBoard,
+  emitResetBoard,
+  emitUpdateRound,
+  onUpdateRound
+} from "../api";
+import "../css/Board.css";
 
 export const Board: React.FC = () => {
   const generateBoard = () => {
@@ -22,18 +27,19 @@ export const Board: React.FC = () => {
   const [board, setBoard] = useState(generateBoard);
   const [round, setRound] = useState(1);
 
-    return (
-      <div >
+  return (
+    <div>
       <h2>Round: {round}</h2>
-        {board}
-        <button 
-          onClick={() => {
-            setBoard(generateBoard);
-            emitResetBoard()
-          }}
-        >
-          Reset
-        </button>
-      </div>
-    );
-  };
+      {board}
+      <button
+        style={{ color: "white" }}
+        onClick={() => {
+          setBoard(generateBoard);
+          emitResetBoard();
+        }}
+      >
+        Reset
+      </button>
+    </div>
+  );
+};

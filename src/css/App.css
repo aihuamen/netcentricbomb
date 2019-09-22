@@ -3,18 +3,39 @@
   flex-direction: column;
   justify-content: center;
   font-size: calc(6px + 2vmin);
+  text-align: center;
 }
 
 .App-game {
+  width: 70%;
+  background-color: rgb(182, 182, 182);
   float: left;
-  width: 75%;
-  background-color: skyblue;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  left: 0;
+  text-align: center;
 }
 
 .App-chat {
   text-align: center;
-  background-color: antiquewhite
+  background-color: white;
+  height: 100%;
+  width: 30%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  right: 0;
 }
 
-
-
+.header {
+  height: 10%;
+  margin-top: -20px;
+  padding-top: 5%;
+  text-align: center;
+  background-color: rgb(199, 199, 199);
+}
