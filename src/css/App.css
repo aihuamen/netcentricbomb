@@ -1,6 +1,6 @@
 .App-game {
   width: 70%;
-  background-color: rgb(182, 182, 182);
+  background-color: rgb(190, 185, 177);
   float: left;
   height: 100%;
   position: fixed;
@@ -31,9 +31,9 @@
 }
 
 .Chat-header {
-  height: 10%;
+  height: 70px;
   margin-top: -20px;
-  padding-top: 5%;
+  padding-top: 20px;
   text-align: center;
-  background-color: rgb(199, 199, 199);
+  background-color: rgb(150, 139, 127);
 }

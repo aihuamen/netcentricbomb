@@ -30,7 +30,7 @@ const App: React.FC = () => {
              Online Player: {playNo}
              </h2>
           </header>
-          <div>1CHAT 2CHAT</div>
+          <div>&#x1F6B4; Bike for Dad</div>
         </div>
       </body>
     </div>
