@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import "../css/Chat.css"
 import {emitChat, onChat, updateChat} from "../api"
 
@@ -14,11 +14,16 @@ export const Chat: React.FC = () => {
     })
   },[setMessage])
 
-  const changeInput = (e:any) => {
-      setInput(e.target.value)
+  const changeInput = (event: ChangeEvent<HTMLInputElement>) => {
+      setInput(event.target.value)
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    emitChat(input)
+    setInput('')
+    event.preventDefault()
   }
   
-
   return (
     <div className="chat-form">
       <div className="chat-box">
@@ -26,7 +31,7 @@ export const Chat: React.FC = () => {
         message.map((word) => <div>{word}</div>)
       }
       </div>
-      <form id="form" className="chat-form-submit">
+      <form id="form" className="chat-form-submit" onSubmit={handleSubmit}>
         <input 
           value={input}
           onChange={changeInput}
@@ -41,7 +46,7 @@ export const Chat: React.FC = () => {
             setInput("")
           }}>
           Send
-        </button>            
+        </button>   
       </form>
     </div>
   )

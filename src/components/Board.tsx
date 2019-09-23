@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Box } from "./Box";
 import {
   onResetBoard,
@@ -14,7 +14,7 @@ export const Board: React.FC = () => {
     return Array(6)
       .fill(0)
       .map((_, i) => (
-        <div>
+        <div className="Bomb-row">
           {Array(6)
             .fill(0)
             .map((_, j) => (

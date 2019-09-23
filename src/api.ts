@@ -3,7 +3,7 @@ const socket = openSocket("http://localhost:8000");
 
 type Callback<T = any> = (err: any, result: T) => void;
 
-export const subscribeToTimer = (callback: Callback) => {
+export const subscribeToTimer = (callback: Callback<string>) => {
   socket.on("timer", (timestamp: string) => callback(null, timestamp));
   //socket.on('message', ... => callback(null,...))
   socket.emit("subscribeToTimer", 1000);
