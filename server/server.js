@@ -45,6 +45,7 @@ io.on("connection", socket => {
     io.emit("newBoard", bStatus);
   });
 
+  // NOTE When user send chat
   socket.on("sendChatPls", (word) => {
     console.log(word + " is sent by someone");
     chatRecord.push(word)

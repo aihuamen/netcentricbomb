@@ -31,9 +31,10 @@
 }
 
 .Chat-header {
-  height: 10%;
+  height: 50px;
   margin-top: -20px;
   padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
   background-color: rgb(177, 177, 177);
 }

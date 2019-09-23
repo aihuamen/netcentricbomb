@@ -1,42 +1,45 @@
 .chat-form {
-    background-color: rebeccapurple;
-    height: 90%;
+  height: 90%; 
 }
 
 .chat-box {
-    color: white;
+  color: white;
+  position: relative;
+  overflow-y: auto;
+  background-color: rebeccapurple;
+  min-height: 93%
 }
   
-  button {
-    cursor: pointer;
-    padding: 12px;
-    background: grey;
-    border: none;
-    color: white;
-    font-size: 16px;
-    transition: background 0.3s ease;
-  }
+button {
+  cursor: pointer;
+  padding: 12px;
+  background: grey;
+  border: none;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
   
-  button:hover {
-    background: rgb(94, 94, 94);
-  }
+button:hover {
+  background: rgb(94, 94, 94);
+}
   
-  button:disabled {
-    cursor: default;
-    background: #7c5cbf94;
-  }
+button:disabled {
+  cursor: default;
+  background: #7c5cbf94;
+}
   
-  input {
-    color: black;
-    width: 70%;
-    height: 25px;
-  }
+input {
+  color: black;
+  width: 70%;
+  height: 25px;
+}
   
-  .chat-form-submit {
-    background-color: rgb(177, 177, 177);
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-  }
+.chat-form-submit {
+  background-color: rgb(177, 177, 177);
+  bottom: 0px;
+  width: 100%;
+  height: 45px;    
+}
 
   
