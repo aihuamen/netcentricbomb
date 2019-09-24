@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import LoginPopup from "./LoginPopup"
 import { subscribeToTimer, playerNumber, updatePlayer } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat"
@@ -20,10 +21,12 @@ const App: React.FC = () => {
         <div className="App-game">
           <header className="Game-header">
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
+            <LoginPopup />
             <hr />
           </header>
           <Board />
           <p>{timestamp}</p>
+          
         </div>
         <div className="App-chat">
           <header className="Chat-header">
