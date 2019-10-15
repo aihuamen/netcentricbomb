@@ -36,6 +36,14 @@ export const emitResetBoard = () => {
 
 export const emitChat = (word: string) => {
   socket.emit("sendChatPls", word);
+};
+
+export const emitUsername = (name: string) => {
+  socket.emit("sendUsername",name);
+};
+
+export const onUsername = (callback: Callback<string>) => {
+  socket.on("setUsername", (name: string) => callback(null,name));
 }
 
 export const onChat = (callback: Callback<string[]>) => {

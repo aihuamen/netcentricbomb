@@ -1,8 +1,23 @@
-import React from "react"
+import React, { useState, FormEvent, ChangeEvent } from "react"
 import Popup from "reactjs-popup"
+import {emitUsername} from "../api"
 import "../css/LoginPopup.css"
 
-export default () => (
+export const LoginPopup: any = () => {
+  const [input,setInput] = useState("");
+  const [username,setUsername] = useState("null");
+
+  const changeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setInput(event.target.value)
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    emitUsername(input)
+    setInput('')
+    event.preventDefault()
+  }
+
+  return (
     <Popup
       trigger={<button className="button"> Login </button>}
       modal
@@ -13,11 +28,28 @@ export default () => (
           <h1>Login Page &#x1F4A3;</h1>
           <hr />
         </header>
-        <form id="form" action="">
+        <form 
+          id="form" 
+          action="" 
+          onSubmit={handleSubmit}>
           Username: <br/>
-          <input className="Inputt" type="text" name = "username"/>
-          <button type="button">OK</button>
+          <input 
+            value={input}
+            onChange={changeInput}
+            className="Inputt" 
+            type="text" 
+            name="username">
+          </input>    
+          <button 
+            type="button"
+            onClick={() => {
+              emitUsername(input)
+              setInput("")
+            }}>
+            OK
+          </button>
         </form>
       </div>
     </Popup>
-);
+  )
+};

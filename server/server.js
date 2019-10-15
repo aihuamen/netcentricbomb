@@ -52,6 +52,11 @@ io.on("connection", socket => {
     io.emit("sendChatLaew",chatRecord);
   });
 
+  socket.on("sendUsername", (name) => {
+    console.log("Welcome " + name + "!")
+    socket.emit("setUsername",name);
+  })
+
   // NOTE When user select box
   socket.on("chooseBox", (pos, cb) => {
     console.log("The box " + pos + " is chosen");
