@@ -19,7 +19,7 @@ export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
         scoreUpdate();
       }
       setPic(resPic);
-    });
+    }); 
   };
 
   useEffect(() => {

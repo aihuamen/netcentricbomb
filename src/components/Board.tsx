@@ -1,11 +1,6 @@
 import React, { useState} from "react";
 import { Box } from "./Box";
-import {
-  onResetBoard,
-  emitResetBoard,
-  emitUpdateRound,
-  onUpdateRound
-} from "../api";
+import { onResetBoard, emitResetBoard, emitUpdateRound, onUpdateRound } from "../api";
 import "../css/Board.css";
 
 export const Board: React.FC = () => {

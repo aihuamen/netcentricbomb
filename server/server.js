@@ -54,7 +54,7 @@ io.on("connection", socket => {
 
   socket.on("sendUsername", (name) => {
     console.log("Welcome " + name + "!")
-    socket.emit("setUsername",name);
+    socket.emit("setUsername",[name,true]);
   })
 
   // NOTE When user select box
