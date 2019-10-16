@@ -35,7 +35,7 @@ export const emitResetBoard = () => {
 };
 
 export const emitChat = (word: string) => {
-  socket.emit("sendChatPls", word);
+  socket.emit("sendChat", word);
 };
 
 export const emitUsername = (name: string) => {
@@ -47,12 +47,16 @@ export const onUsername = (callback: Callback<Array<any>>) => {
 }
 
 export const onChat = (callback: Callback<string[]>) => {
-  socket.on("sendChatLaew", (record: string[]) => callback(null, record));
+  socket.on("onChat", (record: string[]) => callback(null, record));
 }
 
-export const chooseBox = (pos: number, callback: any) => {
-  socket.emit("chooseBox", pos, (result: number) => callback(result));
+export const chooseBox = (pos: number) => {
+  socket.emit("chooseBox", pos);
 };
+
+export const onBox = (callback: Callback<number[]>) => {
+  socket.on("responseBox",(res: number[]) => callback(null,res))
+}
 
 export const playerNumber = (callback: Callback<number>) => {
   socket.on("playerNumber", (playerNumber: number) => callback(null, playerNumber));

@@ -22,7 +22,7 @@ io.on("connection", socket => {
   });
 
   socket.on("updateChat", () => {
-    socket.emit("sendChatLaew",chatRecord);
+    socket.emit("onChat",chatRecord);
   })
 
   socket.on("updateRoundPls", () => {
@@ -46,10 +46,10 @@ io.on("connection", socket => {
   });
 
   // NOTE When user send chat
-  socket.on("sendChatPls", (word) => {
+  socket.on("sendChat", (word) => {
     console.log(word + " is sent by someone");
     chatRecord.push(word)
-    io.emit("sendChatLaew",chatRecord);
+    io.emit("onChat",chatRecord);
   });
 
   socket.on("sendUsername", (name) => {
@@ -58,9 +58,9 @@ io.on("connection", socket => {
   })
 
   // NOTE When user select box
-  socket.on("chooseBox", (pos, cb) => {
+  socket.on("chooseBox", (pos) => {
     console.log("The box " + pos + " is chosen");
-    cb(board[pos]);
+    io.emit("responseBox",[pos,board[pos]])
   });
 
   socket.on("scoreUpdate", () => {
