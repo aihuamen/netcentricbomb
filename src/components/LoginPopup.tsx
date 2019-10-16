@@ -5,7 +5,6 @@ import "../css/LoginPopup.css"
 
 export const LoginPopup: any = () => {
   const [input,setInput] = useState("");
-  const [username,setUsername] = useState("null");
 
   const changeInput = (event: ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value)

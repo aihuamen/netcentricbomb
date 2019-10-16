@@ -15,7 +15,7 @@ export const Chat: React.FC = () => {
   },[setMessage])
 
   const changeInput = (event: ChangeEvent<HTMLInputElement>) => {
-      setInput(event.target.value)
+    setInput(event.target.value)
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
