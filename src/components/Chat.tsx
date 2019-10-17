@@ -4,9 +4,10 @@ import {emitChat, onChat, updateChat} from "../api"
 
 interface TheChat {
   name: string
+  status: boolean
 }
 
-export const Chat: React.FC<TheChat> = ({ name = "null" }) => {
+export const Chat: React.FC<TheChat> = ({ name = "null", status }) => {
   const blankArray: string[] = []
   const [input,setInput] = useState("");
   const [message,setMessage] = useState(blankArray);
@@ -46,7 +47,7 @@ export const Chat: React.FC<TheChat> = ({ name = "null" }) => {
           className="send" 
           type="button"
           onClick ={() => {
-            emitChat(input)
+            emitChat(name + (status ? "" : " (spec)")+ ": " + input)
             setInput("")
           }}>
           Send

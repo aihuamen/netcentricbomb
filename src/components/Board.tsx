@@ -10,9 +10,10 @@ import "../css/Board.css";
 
 interface TheBoard {
   name: string;
+  status: boolean;
 }
 
-export const Board: React.FC<TheBoard> = ({ name = "null2" }) => {
+export const Board: React.FC<TheBoard> = ({ name, status }) => {
   const generateBoard = () => {
     //Cr.SamuraiWarm
     return Array(6)
@@ -22,7 +23,7 @@ export const Board: React.FC<TheBoard> = ({ name = "null2" }) => {
           {Array(6)
             .fill(0)
             .map((_, j) => (
-              <Box pos={6 * i + j} user={name} />
+              <Box pos={6 * i + j} user={name} pStatus={status} />
             ))}
         </div>
       ));

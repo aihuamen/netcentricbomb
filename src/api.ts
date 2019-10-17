@@ -67,3 +67,8 @@ export const playerNumber = (callback: Callback<number>) => {
 export const scoreUpdate = (userName: string) => {
   socket.emit("scoreUpdate", userName);
 };
+
+
+export const onScore = (callback: Callback<object>) => {
+  socket.on("onScore", (score: object) => callback(null, score))
+}

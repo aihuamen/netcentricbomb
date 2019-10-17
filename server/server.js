@@ -19,9 +19,7 @@ console.log("listening on port ", port);
 
 io.on("connection", socket => {
   // NOTE Counting the number of current player online
-  playerNumber = playerNumber + 1;
-  console.log("Current player Online  : ", playerNumber);
-
+  
   socket.on("updatePlayer", () => {
     console.log("Here comes a new challenger");
     setInterval(() => {
@@ -31,7 +29,7 @@ io.on("connection", socket => {
 
   socket.on("getScore", (userName1, userName2) => {
     const score = getScore(userName1, userName2);
-    // socket.emit("")
+    socket.emit("onScore",score)
   });
 
   socket.on("updateChat", () => {
@@ -67,8 +65,12 @@ io.on("connection", socket => {
 
   socket.on("sendUsername", name => {
     console.log("Welcome " + name + "!");
-    addUser(name);
-    socket.emit("setUsername", [name, true]);
+    playerNumber = playerNumber + 1;
+    console.log("Current player Online  : ", playerNumber);
+    if(playerNumber < 3){
+      addUser(name);
+    }
+    socket.emit("setUsername", [name, true, (playerNumber >= 3 ? false : true)]);
   });
 
   socket.on("chooseBox", pos => {
@@ -81,7 +83,9 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    playerNumber = playerNumber - 1;
+    if(playerNumber > 0){
+      playerNumber = playerNumber - 1;
+    }
     console.log("Player disconnected");
     console.log("Current player Online :", playerNumber);
     socket.emit("playerNumber", playerNumber);

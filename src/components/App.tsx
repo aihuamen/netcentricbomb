@@ -4,7 +4,8 @@ import {
   subscribeToTimer,
   playerNumber,
   updatePlayer,
-  onUsername
+  onUsername,
+  onScore
 } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat";
@@ -15,11 +16,14 @@ const App: React.FC = () => {
   const [playNo, setPlayerNo] = useState(0);
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
+  const [isPlayer, setPlayerStatus] = useState(false);
+  const [scores, setScores] = useState(null);
 
   useEffect(() => {
     onUsername((err: any, name: Array<any>) => {
       setPlayerName(name[0]);
       setLogin(name[1]);
+      setPlayerStatus(name[2])
     });
     subscribeToTimer((err: any, interval: string) => setTimestamp(interval));
     updatePlayer();
@@ -32,10 +36,10 @@ const App: React.FC = () => {
         <div className="App-game">
           <header className="Game-header">
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
-            <div>{isLogin ? "Username: " + playerName : <LoginPopup />}</div>
+            <div>{isLogin ? ("Username: " + playerName + (isPlayer ? "" : " (spectator)")) : <LoginPopup />}</div>
             <hr />
           </header>
-          {isLogin ? <Board name={playerName} /> : <h2>Please Login First</h2>}
+          {isLogin ? <Board name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">
@@ -44,7 +48,7 @@ const App: React.FC = () => {
               Online Player: {isLogin ? playNo : 0}
             </h2>
           </header>
-          {isLogin ? <Chat name={playerName} /> : <h2>Please Login First</h2>}
+          {isLogin ? <Chat name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
         </div>
       </body>
     </div>
