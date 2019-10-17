@@ -59,8 +59,8 @@ io.on("connection", socket => {
 
   // NOTE When user select box
   socket.on("chooseBox", (pos) => {
-    console.log("The box " + pos + " is chosen");
-    io.emit("responseBox",[pos,board[pos]])
+    console.log("The box " + pos[0] + " is chosen by " + pos[1]);
+    io.emit("responseBox",[pos[0],board[pos[0]]])
   });
 
   socket.on("scoreUpdate", () => {

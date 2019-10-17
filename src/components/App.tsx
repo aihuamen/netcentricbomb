@@ -32,7 +32,7 @@ const App: React.FC = () => {
             </div>
             <hr />
           </header>
-          {isLogin ? <Board /> : <h2>Please Login First</h2>}
+          {isLogin ? <Board name={playerName} /> : <h2>Please Login First</h2>}
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">

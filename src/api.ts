@@ -50,8 +50,8 @@ export const onChat = (callback: Callback<string[]>) => {
   socket.on("onChat", (record: string[]) => callback(null, record));
 }
 
-export const chooseBox = (pos: number) => {
-  socket.emit("chooseBox", pos);
+export const chooseBox = (pos: number, name: string) => {
+  socket.emit("chooseBox", [pos,name]);
 };
 
 export const onBox = (callback: Callback<number[]>) => {

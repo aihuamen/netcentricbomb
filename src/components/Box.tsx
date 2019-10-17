@@ -3,13 +3,14 @@ import { chooseBox, onResetBoard, onBox, scoreUpdate } from "../api";
 
 interface TheBox {
   pos: number;
+  user: string
 }
 
-export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
+export const Box: React.FC<TheBox> = ({ pos = 69, user = "null3" }) => {
   const [pic, setPic] = useState(process.env.PUBLIC_URL + "image/unClick");
 
   const togglePic = () => {
-    chooseBox(pos)
+    chooseBox(pos,user)
   };
 
   useEffect(() => {

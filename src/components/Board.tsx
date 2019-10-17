@@ -3,7 +3,11 @@ import { Box } from "./Box";
 import { onResetBoard, emitResetBoard, emitUpdateRound, onUpdateRound } from "../api";
 import "../css/Board.css";
 
-export const Board: React.FC = () => {
+interface TheBoard {
+  name: string
+}
+
+export const Board: React.FC<TheBoard> = ({name = "null2"}) => {
   const generateBoard = () => {
     //Cr.SamuraiWarm
     return Array(6)
@@ -13,7 +17,7 @@ export const Board: React.FC = () => {
           {Array(6)
             .fill(0)
             .map((_, j) => (
-              <Box pos={6 * i + j} />
+              <Box pos={6 * i + j} user={name}/>
             ))}
         </div>
       ));
