@@ -17,13 +17,13 @@ export const Box: React.FC<TheBox> = ({ pos = 69, user = "null3" }) => {
     onResetBoard(() => {
       setPic(process.env.PUBLIC_URL + "image/unClick");
     });
-    onBox((err: any, res: number[]) => {
+    onBox((err: any, res: Array<any>) => {
       if(res && pos == res[0]){
         const resPic = res[1]
           ? process.env.PUBLIC_URL + "image/bomb"
           : process.env.PUBLIC_URL + "image/tiles";
 
-        if (res[1]) {
+        if (res[1] && user==res[2]) {
           scoreUpdate();
         }
         setPic(resPic);

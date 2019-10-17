@@ -60,7 +60,7 @@ io.on("connection", socket => {
   // NOTE When user select box
   socket.on("chooseBox", (pos) => {
     console.log("The box " + pos[0] + " is chosen by " + pos[1]);
-    io.emit("responseBox",[pos[0],board[pos[0]]])
+    io.emit("responseBox",[pos[0],board[pos[0]],pos[1]])
   });
 
   socket.on("scoreUpdate", () => {
