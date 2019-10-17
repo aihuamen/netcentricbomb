@@ -2,7 +2,11 @@ import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import "../css/Chat.css"
 import {emitChat, onChat, updateChat} from "../api"
 
-export const Chat: React.FC = () => {
+interface TheChat {
+  name: string
+}
+
+export const Chat: React.FC<TheChat> = ({ name = "null" }) => {
   const blankArray: string[] = []
   const [input,setInput] = useState("");
   const [message,setMessage] = useState(blankArray);
@@ -19,7 +23,7 @@ export const Chat: React.FC = () => {
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    emitChat(input)
+    emitChat(name + ": " + input)
     setInput('')
     event.preventDefault()
   }

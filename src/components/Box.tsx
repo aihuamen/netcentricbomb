@@ -22,7 +22,7 @@ export const Box: React.FC<TheBox> = ({ pos = 69 }) => {
           ? process.env.PUBLIC_URL + "image/bomb"
           : process.env.PUBLIC_URL + "image/tiles";
 
-        if (res && res[1] === 1) {
+        if (res[1]) {
           scoreUpdate();
         }
         setPic(resPic);

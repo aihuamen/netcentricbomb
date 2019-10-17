@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <header className="Chat-header">
             <h2 style={{ color: "black" }}>Online Player: {isLogin ? playNo : 0}</h2>
           </header>
-          {isLogin ? <Chat /> : <h2>Please Login First</h2>}
+          {isLogin ? <Chat name = {playerName} /> : <h2>Please Login First</h2>}
         </div>
       </body>
     </div>
