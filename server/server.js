@@ -1,6 +1,14 @@
 const io = require("socket.io")();
 const port = 8000;
 const { createBoard, calculateScore } = require("../src/utils/game");
+const {
+  addUser,
+  removeUser,
+  getScore,
+  updateScore,
+  resetAll,
+  resetScore
+} = require("../src/utils/users");
 let bStatus = 1;
 let board = createBoard();
 let playerNumber = 0;
@@ -21,9 +29,14 @@ io.on("connection", socket => {
     }, 1);
   });
 
+  socket.on("getScore", (userName1, userName2) => {
+    const score = getScore(userName1, userName2);
+    // socket.emit("")
+  });
+
   socket.on("updateChat", () => {
-    socket.emit("onChat",chatRecord);
-  })
+    socket.emit("onChat", chatRecord);
+  });
 
   socket.on("updateRoundPls", () => {
     setInterval(() => {
@@ -41,34 +54,32 @@ io.on("connection", socket => {
   socket.on("resetBoard", () => {
     console.log("reset board");
     board = createBoard();
+    resetAll();
     bStatus++;
     io.emit("newBoard", bStatus);
   });
 
   // NOTE When user send chat
-  socket.on("sendChat", (word) => {
-    console.log(word + " is sent by someone");
-    chatRecord.push(word)
-    io.emit("onChat",chatRecord);
+  socket.on("sendChat", word => {
+    chatRecord.push(word);
+    io.emit("onChat", chatRecord);
   });
 
-  socket.on("sendUsername", (name) => {
-    console.log("Welcome " + name + "!")
-    socket.emit("setUsername",[name,true]);
-  })
+  socket.on("sendUsername", name => {
+    console.log("Welcome " + name + "!");
+    addUser(name);
+    socket.emit("setUsername", [name, true]);
+  });
 
-  // NOTE When user select box
-  socket.on("chooseBox", (pos) => {
+  socket.on("chooseBox", pos => {
     console.log("The box " + pos[0] + " is chosen by " + pos[1]);
-    io.emit("responseBox",[pos[0],board[pos[0]],pos[1]])
+    io.emit("responseBox", [pos[0], board[pos[0]], pos[1]]);
   });
 
-  socket.on("scoreUpdate", () => {
-    console.log("Score!!");
-    // TODO Adding score in by user
+  socket.on("scoreUpdate", userName => {
+    updateScore(userName);
   });
 
-  // NOTE When user disconnected
   socket.on("disconnect", () => {
     playerNumber = playerNumber - 1;
     console.log("Player disconnected");

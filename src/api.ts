@@ -16,7 +16,7 @@ export const updatePlayer = () => {
 
 export const updateChat = () => {
   socket.emit("updateChat");
-}
+};
 
 export const emitUpdateRound = () => {
   socket.emit("updateRoundPls");
@@ -39,29 +39,31 @@ export const emitChat = (word: string) => {
 };
 
 export const emitUsername = (name: string) => {
-  socket.emit("sendUsername",name);
+  socket.emit("sendUsername", name);
 };
 
 export const onUsername = (callback: Callback<Array<any>>) => {
-  socket.on("setUsername", (name: Array<any>) => callback(null,name));
-}
+  socket.on("setUsername", (name: Array<any>) => callback(null, name));
+};
 
 export const onChat = (callback: Callback<string[]>) => {
   socket.on("onChat", (record: string[]) => callback(null, record));
-}
+};
 
 export const chooseBox = (pos: number, name: string) => {
-  socket.emit("chooseBox", [pos,name]);
+  socket.emit("chooseBox", [pos, name]);
 };
 
 export const onBox = (callback: Callback<Array<any>>) => {
-  socket.on("responseBox",(res: Array<any>) => callback(null,res))
-}
-
-export const playerNumber = (callback: Callback<number>) => {
-  socket.on("playerNumber", (playerNumber: number) => callback(null, playerNumber));
+  socket.on("responseBox", (res: Array<any>) => callback(null, res));
 };
 
-export const scoreUpdate = () => {
-  socket.emit("scoreUpdate");
+export const playerNumber = (callback: Callback<number>) => {
+  socket.on("playerNumber", (playerNumber: number) =>
+    callback(null, playerNumber)
+  );
+};
+
+export const scoreUpdate = (userName: string) => {
+  socket.emit("scoreUpdate", userName);
 };

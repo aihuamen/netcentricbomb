@@ -1,13 +1,18 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Box } from "./Box";
-import { onResetBoard, emitResetBoard, emitUpdateRound, onUpdateRound } from "../api";
+import {
+  onResetBoard,
+  emitResetBoard,
+  emitUpdateRound,
+  onUpdateRound
+} from "../api";
 import "../css/Board.css";
 
 interface TheBoard {
-  name: string
+  name: string;
 }
 
-export const Board: React.FC<TheBoard> = ({name = "null2"}) => {
+export const Board: React.FC<TheBoard> = ({ name = "null2" }) => {
   const generateBoard = () => {
     //Cr.SamuraiWarm
     return Array(6)
@@ -17,7 +22,7 @@ export const Board: React.FC<TheBoard> = ({name = "null2"}) => {
           {Array(6)
             .fill(0)
             .map((_, j) => (
-              <Box pos={6 * i + j} user={name}/>
+              <Box pos={6 * i + j} user={name} />
             ))}
         </div>
       ));
