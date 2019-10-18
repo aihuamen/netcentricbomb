@@ -7,19 +7,21 @@ const {
   getScore,
   updateScore,
   resetAll,
-  resetScore
+  resetScore,
+  randomPlayer
 } = require("../src/utils/users");
 let bStatus = 1;
 let board = createBoard();
 let playerNumber = 0;
 let chatRecord = [];
+let player = 0;
 
 io.listen(port);
 console.log("listening on port ", port);
 
 io.on("connection", socket => {
   // NOTE Counting the number of current player online
-  
+
   socket.on("updatePlayer", () => {
     console.log("Here comes a new challenger");
     setInterval(() => {
@@ -29,7 +31,7 @@ io.on("connection", socket => {
 
   socket.on("getScore", () => {
     const score = getScore();
-    io.emit("onScore",score)
+    io.emit("onScore", score);
   });
 
   socket.on("updateChat", () => {
@@ -49,17 +51,39 @@ io.on("connection", socket => {
     }, interval);
   });
 
-  socket.on("setCountDown", (name) => {
-    let start = 10
-    console.log("start timer")
-    const interval = setInterval(() => {
-      if(start < 1) clearInterval(interval)
-        io.emit("startCountDown",start);
-        start--; 
-    }, 1000)
+  socket.on("setCountDown", name => {
+    console.log(name + "  is ready");
+    player = player + 1;
+    if (player >= 2) {
+      console.log(randomPlayer());
+      countDown();
+    }
   });
 
+  const countDown = () => {
+    let start = 10;
+    console.log("start timer");
+    const interval = setInterval(() => {
+      if (start < 1) clearInterval(interval);
+      io.emit("startCountDown", start);
+      start--;
+      if (start == 0) {
+        switchPlayer();
+      }
+    }, 1000);
+  };
+
+  /* socket.on("setCountDown", name => {
+    let start = 10;
+    console.log(name + " is ready");
+    player = player + 1;
+
+    if (player == 2) {
+    }
+  });
+ */
   socket.on("resetBoard", () => {
+    playerNumber = 0;
     console.log("reset board");
     board = createBoard();
     resetAll();
@@ -77,10 +101,10 @@ io.on("connection", socket => {
     console.log("Welcome " + name + "!");
     playerNumber = playerNumber + 1;
     console.log("Current player Online  : ", playerNumber);
-    if(playerNumber < 3){
+    if (playerNumber < 3) {
       addUser(name);
     }
-    socket.emit("setUsername", [name, true, (playerNumber >= 3 ? false : true)]);
+    socket.emit("setUsername", [name, true, playerNumber >= 3 ? false : true]);
   });
 
   socket.on("chooseBox", pos => {
@@ -93,7 +117,7 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    if(playerNumber > 0){
+    if (playerNumber > 0) {
       playerNumber = playerNumber - 1;
     }
     console.log("Player disconnected");

@@ -4,7 +4,7 @@ const createBoard = () => {
 
   var arr = [];
   while (arr.length < 11) {
-    var r = Math.floor(Math.random() * 36) + 1;
+    var r = Math.floor(Math.random() * 36);
     if (arr.indexOf(r) === -1) arr.push(r);
   }
 

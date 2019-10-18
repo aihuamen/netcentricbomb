@@ -7,16 +7,19 @@ type Callback<T = any> = (err: any, result: T) => void;
 export const subscribeToTimer = (callback: Callback<string>) => {
   socket.on("timer", (timestamp: string) => callback(null, timestamp));
   socket.emit("subscribeToTimer", 1000);
-  
 };
 
 export const emitCountDown = (name: string) => {
   socket.emit("setCountDown", name);
-}
+};
+
+export const playerReady = (name: string) => {
+  socket.emit("playerReady", name);
+};
 
 export const onCountDown = (callback: Callback<number>) => {
-  socket.on("startCountDown",(start: number) => callback(null, start))
-}
+  socket.on("startCountDown", (start: number) => callback(null, start));
+};
 
 export const updatePlayer = () => {
   socket.emit("updatePlayer");
@@ -78,8 +81,8 @@ export const scoreUpdate = (userName: string) => {
 
 export const getScore = () => {
   socket.emit("getScore");
-}
+};
 
 export const onScore = (callback: Callback<User[]>) => {
-  socket.on("onScore", (score: User[]) => callback(null, score))
-}
+  socket.on("onScore", (score: User[]) => callback(null, score));
+};

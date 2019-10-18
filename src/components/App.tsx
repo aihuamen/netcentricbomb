@@ -15,13 +15,13 @@ import "../css/App.css";
 import { Score } from "./Score";
 
 export interface User {
-  userName: string
-  score: number
+  userName: string;
+  score: number;
 }
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = useState("no time stamp yet");
-  const [countdown, setCountdown] = useState(69)
+  const [countdown, setCountdown] = useState(69);
   const [playNo, setPlayerNo] = useState(0);
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
@@ -32,18 +32,18 @@ const App: React.FC = () => {
     onUsername((err: any, name: Array<any>) => {
       setPlayerName(name[0]);
       setLogin(name[1]);
-      setPlayerStatus(name[2])
+      setPlayerStatus(name[2]);
     });
     subscribeToTimer((err: any, interval: string) => setTimestamp(interval));
     updatePlayer();
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
-    onScore((err: any, score: User[]) => setScores(score))
-    onCountDown((err: any, count: number) => setCountdown(count))
+    onScore((err: any, score: User[]) => setScores(score));
+    onCountDown((err: any, count: number) => setCountdown(count));
   }, [setTimestamp, setCountdown]);
 
   const clickReady = () => {
-    emitCountDown(playerName)
-  }
+    emitCountDown(playerName);
+  };
 
   return (
     <div className="App">
@@ -51,16 +51,29 @@ const App: React.FC = () => {
         <div className="App-game">
           <header className="Game-header">
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
-            <div>{isLogin ? ("Username: " + playerName + (isPlayer ? "" : " (spectator)")) : <LoginPopup />}</div>
+            <div>
+              {isLogin ? (
+                "Username: " + playerName + (isPlayer ? "" : " (spectator)")
+              ) : (
+                <LoginPopup />
+              )}
+            </div>
             <hr />
           </header>
           <p>{countdown}</p>
-          <Score scores={scores}/>
-          {isLogin ? <Board name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
-          {isPlayer 
-            ?  <button className="Start-button" onClick={clickReady}>Ready</button>
-            : <p></p>
-           }
+          <Score scores={scores} />
+          {isLogin ? (
+            <Board name={playerName} status={isPlayer} />
+          ) : (
+            <h2>Please Login First</h2>
+          )}
+          {isPlayer ? (
+            <button className="Start-button" onClick={clickReady}>
+              Ready
+            </button>
+          ) : (
+            <p></p>
+          )}
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">
@@ -69,7 +82,11 @@ const App: React.FC = () => {
               Online Player: {isLogin ? playNo : 0}
             </h2>
           </header>
-          {isLogin ? <Chat name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
+          {isLogin ? (
+            <Chat name={playerName} status={isPlayer} />
+          ) : (
+            <h2>Please Login First</h2>
+          )}
         </div>
       </div>
     </div>

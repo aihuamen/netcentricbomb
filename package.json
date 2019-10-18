@@ -14,14 +14,15 @@
     "reactjs-popup": "^1.5.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
-    "typescript": "3.6.3"
+    "typescript": "3.6.3",
+    "uifx": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:server": "nodemon server/server.js"
+    "server": "nodemon server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"

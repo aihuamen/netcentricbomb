@@ -10,8 +10,12 @@ const addUser = userName => {
 
 const removeUser = () => {};
 
+const randomPlayer = () => {
+  if (Math.random() > 0.5) return users[0];
+  else return users[1];
+};
+
 const getScore = () => {
-  
   console.log(users);
   return users;
 };
@@ -45,5 +49,6 @@ module.exports = {
   getScore,
   updateScore,
   resetScore,
-  resetAll
+  resetAll,
+  randomPlayer
 };
