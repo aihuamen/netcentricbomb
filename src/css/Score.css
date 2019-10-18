@@ -1,0 +1,7 @@
+.Score-banner {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 20px;
+    font-weight: bold;
+}
+

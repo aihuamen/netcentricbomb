@@ -1,4 +1,5 @@
 import openSocket from "socket.io-client";
+import { User } from "./components/App";
 const socket = openSocket("http://localhost:8000");
 
 type Callback<T = any> = (err: any, result: T) => void;
@@ -68,7 +69,10 @@ export const scoreUpdate = (userName: string) => {
   socket.emit("scoreUpdate", userName);
 };
 
+export const getScore = () => {
+  socket.emit("getScore");
+}
 
-export const onScore = (callback: Callback<object>) => {
-  socket.on("onScore", (score: object) => callback(null, score))
+export const onScore = (callback: Callback<User[]>) => {
+  socket.on("onScore", (score: User[]) => callback(null, score))
 }

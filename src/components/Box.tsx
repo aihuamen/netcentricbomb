@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { chooseBox, onResetBoard, onBox, scoreUpdate } from "../api";
+import { chooseBox, onResetBoard, onBox, scoreUpdate, getScore } from "../api";
 
 interface TheBox {
   pos: number;
@@ -22,6 +22,7 @@ export const Box: React.FC<TheBox> = ({ pos = 69, user, pStatus }) => {
 
         if (res[1] && user === res[2]) {
           scoreUpdate(res[2]);
+          getScore();
         }
         setPic(resPic);
       }

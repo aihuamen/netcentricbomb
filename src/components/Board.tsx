@@ -13,33 +13,30 @@ interface TheBoard {
   status: boolean;
 }
 
-export const Board: React.FC<TheBoard> = ({ name, status }) => {
-  const generateBoard = () => {
-    //Cr.SamuraiWarm
-    return Array(6)
-      .fill(0)
-      .map((_, i) => (
-        <div className="Bomb-row">
-          {Array(6)
-            .fill(0)
-            .map((_, j) => (
-              <Box pos={6 * i + j} user={name} pStatus={status} />
-            ))}
-        </div>
-      ));
-  };
 
-  const [board, setBoard] = useState(generateBoard);
+export const Board: React.FC<TheBoard> = ({ name, status }) => {
   const [round, setRound] = useState(1);
 
   return (
     <div>
       <h2>Round: {round}</h2>
-      {board}
+      {
+        //Cr.SamuraiWarm
+        Array(6)
+        .fill(0)
+        .map((_, i) => (
+          <div className="Bomb-row">
+            {Array(6)
+              .fill(0)
+              .map((_, j) => (
+                <Box pos={6 * i + j} user={name} pStatus={status} />
+              ))}
+          </div>
+        ))
+      }
       <button
         className="reset"
         onClick={() => {
-          setBoard(generateBoard);
           emitResetBoard();
         }}
       >

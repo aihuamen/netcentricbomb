@@ -27,9 +27,9 @@ io.on("connection", socket => {
     }, 1);
   });
 
-  socket.on("getScore", (userName1, userName2) => {
-    const score = getScore(userName1, userName2);
-    socket.emit("onScore",score)
+  socket.on("getScore", () => {
+    const score = getScore();
+    io.emit("onScore",score)
   });
 
   socket.on("updateChat", () => {

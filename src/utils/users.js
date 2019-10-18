@@ -10,19 +10,10 @@ const addUser = userName => {
 
 const removeUser = () => {};
 
-const getScore = (userName1, userName2) => {
-  const score1 = 0;
-  const score2 = 0;
-  users.find(user => {
-    if (user.userName === userName1) {
-      score1 = user.score;
-    }
-    if (user.userName === userName2) {
-      score2 = user.score;
-    }
-  });
-  console.log({ score1, score2 });
-  return { score1, score2 };
+const getScore = () => {
+  
+  console.log(users);
+  return users;
 };
 
 const updateScore = userName => {

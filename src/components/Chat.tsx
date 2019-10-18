@@ -24,7 +24,7 @@ export const Chat: React.FC<TheChat> = ({ name = "null", status }) => {
   }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    emitChat(name + ": " + input)
+    emitChat(name + (status ? "" : " (spec)")+ ": " + input)
     setInput('')
     event.preventDefault()
   }

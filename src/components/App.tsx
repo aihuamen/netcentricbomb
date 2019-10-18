@@ -10,14 +10,20 @@ import {
 import { Board } from "./Board";
 import { Chat } from "./Chat";
 import "../css/App.css";
+import { Score } from "./Score";
+
+export interface User {
+  userName: string
+  score: number
+}
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = useState("no time stamp yet");
   const [playNo, setPlayerNo] = useState(0);
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
-  const [isPlayer, setPlayerStatus] = useState(false);
-  const [scores, setScores] = useState(null);
+  const [isPlayer, setPlayerStatus] = useState(true);
+  const [scores, setScores] = useState<User[]>([]);
 
   useEffect(() => {
     onUsername((err: any, name: Array<any>) => {
@@ -28,6 +34,8 @@ const App: React.FC = () => {
     subscribeToTimer((err: any, interval: string) => setTimestamp(interval));
     updatePlayer();
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
+    onScore((err: any, score: User[]) => setScores(score))
+      
   }, [setTimestamp]);
 
   return (
@@ -39,6 +47,7 @@ const App: React.FC = () => {
             <div>{isLogin ? ("Username: " + playerName + (isPlayer ? "" : " (spectator)")) : <LoginPopup />}</div>
             <hr />
           </header>
+          <Score scores={scores}/>
           {isLogin ? <Board name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
           <p>{timestamp}</p>
         </div>
