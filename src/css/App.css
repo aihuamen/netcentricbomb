@@ -39,3 +39,13 @@
   background-color: rgb(177, 177, 177);
 }
 
+.Start-button {
+  color: white;
+  font-size: 18px;
+  background-color: rgb(97, 97, 97);
+  border: none;
+  text-align: center;
+  padding: 10px 130px;
+  margin-top: 20px;
+}
+

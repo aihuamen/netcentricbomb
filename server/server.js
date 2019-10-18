@@ -49,6 +49,16 @@ io.on("connection", socket => {
     }, interval);
   });
 
+  socket.on("setCountDown", (name) => {
+    let start = 10
+    console.log("start timer")
+    const interval = setInterval(() => {
+      if(start < 1) clearInterval(interval)
+        io.emit("startCountDown",start);
+        start--; 
+    }, 1000)
+  });
+
   socket.on("resetBoard", () => {
     console.log("reset board");
     board = createBoard();

@@ -6,10 +6,17 @@ type Callback<T = any> = (err: any, result: T) => void;
 
 export const subscribeToTimer = (callback: Callback<string>) => {
   socket.on("timer", (timestamp: string) => callback(null, timestamp));
-  //socket.on('message', ... => callback(null,...))
   socket.emit("subscribeToTimer", 1000);
-  //socket.emit('sentMessage', ...)
+  
 };
+
+export const emitCountDown = (name: string) => {
+  socket.emit("setCountDown", name);
+}
+
+export const onCountDown = (callback: Callback<number>) => {
+  socket.on("startCountDown",(start: number) => callback(null, start))
+}
 
 export const updatePlayer = () => {
   socket.emit("updatePlayer");

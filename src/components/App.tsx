@@ -5,7 +5,9 @@ import {
   playerNumber,
   updatePlayer,
   onUsername,
-  onScore
+  onScore,
+  emitCountDown,
+  onCountDown
 } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat";
@@ -19,10 +21,11 @@ export interface User {
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = useState("no time stamp yet");
+  const [countdown, setCountdown] = useState(69)
   const [playNo, setPlayerNo] = useState(0);
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
-  const [isPlayer, setPlayerStatus] = useState(true);
+  const [isPlayer, setPlayerStatus] = useState(false);
   const [scores, setScores] = useState<User[]>([]);
 
   useEffect(() => {
@@ -35,20 +38,29 @@ const App: React.FC = () => {
     updatePlayer();
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
     onScore((err: any, score: User[]) => setScores(score))
-      
-  }, [setTimestamp]);
+    onCountDown((err: any, count: number) => setCountdown(count))
+  }, [setTimestamp, setCountdown]);
+
+  const clickReady = () => {
+    emitCountDown(playerName)
+  }
 
   return (
     <div className="App">
-      <body className="App-body">
+      <div className="App-body">
         <div className="App-game">
           <header className="Game-header">
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
             <div>{isLogin ? ("Username: " + playerName + (isPlayer ? "" : " (spectator)")) : <LoginPopup />}</div>
             <hr />
           </header>
+          <p>{countdown}</p>
           <Score scores={scores}/>
           {isLogin ? <Board name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
+          {isPlayer 
+            ?  <button className="Start-button" onClick={clickReady}>Ready</button>
+            : <p></p>
+           }
           <p>{timestamp}</p>
         </div>
         <div className="App-chat">
@@ -59,7 +71,7 @@ const App: React.FC = () => {
           </header>
           {isLogin ? <Chat name={playerName} status={isPlayer} /> : <h2>Please Login First</h2>}
         </div>
-      </body>
+      </div>
     </div>
   );
 };
