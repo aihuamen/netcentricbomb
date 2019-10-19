@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sarun Nuntaviriyakul</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  </head>
+  <body>
+    <div style="text-align: center; margin:50px 0 20px">
+      <button onClick="resetScore();">Reset Score</button>
+    </div>
+    <h3 style="text-align: center">Server History</h3>
+    <div style="text-align: center" id="history"></div>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+</html>

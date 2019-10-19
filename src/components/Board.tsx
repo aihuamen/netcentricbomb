@@ -18,7 +18,7 @@ export const Board: React.FC<TheBoard> = ({ name, status }) => {
 
   return (
     <div>
-      <h2>Round: {round}</h2>
+      <h3>Round: {round}</h3>
       {//Cr.SamuraiWarm
       Array(6)
         .fill(0)

@@ -8,7 +8,7 @@ import {
   onScore,
   emitCountDown,
   onCountDown,
-  onPlayable,
+  onPlayable
 } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat";
@@ -22,7 +22,7 @@ export interface User {
 
 const App: React.FC = () => {
   const [timestamp, setTimestamp] = useState("no time stamp yet");
-  const [countdown, setCountdown] = useState(69);
+  const [countdown, setCountdown] = useState(0);
   const [playNo, setPlayerNo] = useState(0);
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
@@ -41,11 +41,11 @@ const App: React.FC = () => {
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
     onScore((err: any, score: User[]) => setScores(score));
     onPlayable((err: any, playable: string) => {
-      console.log(playable)
-      setPlayable(playable)
-    })
+      console.log(playable);
+      setPlayable(playable);
+    });
     onCountDown((err: any, count: number) => {
-      setCountdown(count)
+      setCountdown(count);
     });
   }, [setTimestamp, setCountdown, setPlayable]);
 
@@ -61,20 +61,31 @@ const App: React.FC = () => {
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
             <div>
               {isLogin ? (
-                "Username: " + playerName + (isPlayer ? "" : " (spectator)")
+                "NickName  : " + playerName + (isPlayer ? "" : " (spectator)")
               ) : (
                 <LoginPopup />
               )}
             </div>
             <hr />
           </header>
-          {isLogin ? <p>Timer: {countdown}</p> : <p></p>}
+          {isLogin ? <h2>Timer: {countdown}</h2> : <p></p>}
           {isLogin ? <Score scores={scores} /> : <p></p>}
           {isLogin ? (
-            <Board name={playerName} status={isPlayer && (playerName === isPlayable)} />
+            <h3 style={{ background: "lightgrey" }}>
+              Current turn: {isPlayable}
+            </h3>
+          ) : (
+            <p></p>
+          )}
+          {isLogin ? (
+            <Board
+              name={playerName}
+              status={isPlayer && playerName === isPlayable}
+            />
           ) : (
             <h2>Please Login First</h2>
           )}
+
           {isPlayer ? (
             <button className="Start-button" onClick={clickReady}>
               Ready
@@ -83,8 +94,8 @@ const App: React.FC = () => {
             <p></p>
           )}
           <p>{timestamp}</p>
-          {isLogin ? <p>Current turn: {isPlayable}</p> : <p></p>}
-        </div>}
+        </div>
+        }
         <div className="App-chat">
           <header className="Chat-header">
             <h2 style={{ color: "black" }}>
