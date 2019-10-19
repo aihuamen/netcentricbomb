@@ -11,8 +11,8 @@ const addUser = userName => {
 const removeUser = () => {};
 
 const randomPlayer = () => {
-  if (Math.random() > 0.5) return users[0];
-  else return users[1];
+  if (Math.random() > 0.5) return users[0].userName;
+  else return users[1].userName;
 };
 
 const getScore = () => {

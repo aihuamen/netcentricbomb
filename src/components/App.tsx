@@ -40,9 +40,9 @@ const App: React.FC = () => {
     updatePlayer();
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
     onScore((err: any, score: User[]) => setScores(score));
-    onPlayable((err: any, playable: User) => {
-      console.log(playable.userName)
-      setPlayable(playable.userName)
+    onPlayable((err: any, playable: string) => {
+      console.log(playable)
+      setPlayable(playable)
     })
     onCountDown((err: any, count: number) => {
       setCountdown(count)

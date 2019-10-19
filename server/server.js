@@ -16,6 +16,8 @@ let playerNumber = 0;
 let chatRecord = [];
 let player = 0;
 let turn = 1;
+let bombFound = 0;
+let isClick = false;
 
 io.listen(port);
 console.log("listening on port ", port);
@@ -76,7 +78,10 @@ io.on("connection", socket => {
     let start = 10;
     console.log("start timer");
     const interval = setInterval(() => {
-      if (start < 1) clearInterval(interval);
+      if (start < 1 || isClick || bombFound === 11) {
+        isClick = false;
+        clearInterval(interval);
+      }  
       io.emit("startCountDown", start);
       console.log(start)
       start--;
@@ -91,13 +96,13 @@ io.on("connection", socket => {
   const switchUser = (playable) => {
     const allPlayer = getScore()
     allPlayer.find(user => {
-      if(user.userName != playable.userName){
-        console.log(user)
-        startCountDown(user)
+      if(user.userName != playable){
+        console.log(user.userName)
+        startCountDown(user.userName)
       }
     })
   }
-
+//
   /* socket.on("setCountDown", name => {
     let start = 10;
     console.log(name + " is ready");
@@ -135,10 +140,15 @@ io.on("connection", socket => {
 
   socket.on("chooseBox", pos => {
     console.log("The box " + pos[0] + " is chosen by " + pos[1]);
+    isClick = true;
+    if(bombFound < 11) {
+      switchUser(pos[1])
+    }  
     io.emit("responseBox", [pos[0], board[pos[0]], pos[1]]);
   });
 
   socket.on("scoreUpdate", userName => {
+    bombFound = bombFound + 1
     updateScore(userName);
   });
 

@@ -17,8 +17,8 @@ export const playerReady = (name: string) => {
   socket.emit("playerReady", name);
 };
 
-export const onPlayable = (callback: Callback<User>) => {
-  socket.on("setPlayable", (playable: User) => callback(null, playable))
+export const onPlayable = (callback: Callback<string>) => {
+  socket.on("setPlayable", (playable: string) => callback(null, playable))
 }
 
 export const onCountDown = (callback: Callback<number>) => {
