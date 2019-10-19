@@ -16,7 +16,6 @@ const randomPlayer = () => {
 };
 
 const getScore = () => {
-  console.log(users);
   return users;
 };
 

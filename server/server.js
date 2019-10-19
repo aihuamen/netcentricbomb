@@ -15,6 +15,7 @@ let board = createBoard();
 let playerNumber = 0;
 let chatRecord = [];
 let player = 0;
+let turn = 1;
 
 io.listen(port);
 console.log("listening on port ", port);
@@ -30,9 +31,13 @@ io.on("connection", socket => {
   });
 
   socket.on("getScore", () => {
+    showScore()
+  });
+
+  const showScore = () => {
     const score = getScore();
     io.emit("onScore", score);
-  });
+  }
 
   socket.on("updateChat", () => {
     socket.emit("onChat", chatRecord);
@@ -55,23 +60,43 @@ io.on("connection", socket => {
     console.log(name + "  is ready");
     player = player + 1;
     if (player >= 2) {
-      console.log(randomPlayer());
-      countDown();
+      player = 0
+      const playable = randomPlayer()
+      console.log(playable);
+      startCountDown(playable)
     }
   });
 
-  const countDown = () => {
+  const startCountDown = (playable) => {
+    io.emit("setPlayable",playable)
+    countDown(playable);
+  }
+
+  const countDown = (playable) => {
     let start = 10;
     console.log("start timer");
     const interval = setInterval(() => {
       if (start < 1) clearInterval(interval);
       io.emit("startCountDown", start);
+      console.log(start)
       start--;
-      if (start == 0) {
-        switchPlayer();
+      if(start === -1 && turn < 36){
+        turn = turn +1
+        console.log("turn: " + turn)
+        switchUser(playable)
       }
     }, 1000);
   };
+
+  const switchUser = (playable) => {
+    const allPlayer = getScore()
+    allPlayer.find(user => {
+      if(user.userName != playable.userName){
+        console.log(user)
+        startCountDown(user)
+      }
+    })
+  }
 
   /* socket.on("setCountDown", name => {
     let start = 10;
@@ -103,6 +128,7 @@ io.on("connection", socket => {
     console.log("Current player Online  : ", playerNumber);
     if (playerNumber < 3) {
       addUser(name);
+      showScore()
     }
     socket.emit("setUsername", [name, true, playerNumber >= 3 ? false : true]);
   });

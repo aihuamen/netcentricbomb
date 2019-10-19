@@ -7,7 +7,8 @@ import {
   onUsername,
   onScore,
   emitCountDown,
-  onCountDown
+  onCountDown,
+  onPlayable,
 } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat";
@@ -26,6 +27,7 @@ const App: React.FC = () => {
   const [playerName, setPlayerName] = useState("null");
   const [isLogin, setLogin] = useState(false);
   const [isPlayer, setPlayerStatus] = useState(false);
+  const [isPlayable, setPlayable] = useState("null");
   const [scores, setScores] = useState<User[]>([]);
 
   useEffect(() => {
@@ -38,8 +40,14 @@ const App: React.FC = () => {
     updatePlayer();
     playerNumber((err: any, playerNumber: number) => setPlayerNo(playerNumber));
     onScore((err: any, score: User[]) => setScores(score));
-    onCountDown((err: any, count: number) => setCountdown(count));
-  }, [setTimestamp, setCountdown]);
+    onPlayable((err: any, playable: User) => {
+      console.log(playable.userName)
+      setPlayable(playable.userName)
+    })
+    onCountDown((err: any, count: number) => {
+      setCountdown(count)
+    });
+  }, [setTimestamp, setCountdown, setPlayable]);
 
   const clickReady = () => {
     emitCountDown(playerName);
@@ -60,10 +68,10 @@ const App: React.FC = () => {
             </div>
             <hr />
           </header>
-          <p>{countdown}</p>
-          <Score scores={scores} />
+          {isLogin ? <p>Timer: {countdown}</p> : <p></p>}
+          {isLogin ? <Score scores={scores} /> : <p></p>}
           {isLogin ? (
-            <Board name={playerName} status={isPlayer} />
+            <Board name={playerName} status={isPlayer && (playerName === isPlayable)} />
           ) : (
             <h2>Please Login First</h2>
           )}
@@ -75,7 +83,8 @@ const App: React.FC = () => {
             <p></p>
           )}
           <p>{timestamp}</p>
-        </div>
+          {isLogin ? <p>Current turn: {isPlayable}</p> : <p></p>}
+        </div>}
         <div className="App-chat">
           <header className="Chat-header">
             <h2 style={{ color: "black" }}>
