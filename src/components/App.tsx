@@ -31,9 +31,9 @@ const App: React.FC = () => {
   const [isPlayer, setPlayerStatus] = useState(false);
   const [isPlayable, setPlayable] = useState("null");
   const [scores, setScores] = useState<User[]>([]);
-  const [winner, setWinner] = useState("")
-  const [notReady, setReady] = useState(true)
-  const [welcome, setWelcome] = useState(true)
+  const [winner, setWinner] = useState("");
+  const [notReady, setReady] = useState(true);
+  const [welcome, setWelcome] = useState(true);
 
   useEffect(() => {
     onUsername((err: any, name: Array<any>) => {
@@ -47,7 +47,7 @@ const App: React.FC = () => {
     onScore((err: any, score: User[]) => setScores(score));
     onPlayable((err: any, playable: string) => {
       console.log(playable);
-      setWelcome(false)
+      setWelcome(false);
       setPlayable(playable);
     });
     onCountDown((err: any, count: number) => {
@@ -55,31 +55,34 @@ const App: React.FC = () => {
     });
     onWinner((err: any, winner: string) => {
       setWinner(winner);
-    })
+    });
     onResetBoard((err: any, round: number) => {
       setReady(true);
-    })
+    });
   }, [setTimestamp, setCountdown, setPlayable]);
 
   const clickReady = () => {
-    if(notReady){
+    if (notReady) {
       emitCountDown(playerName, winner);
       setReady(false);
     }
   };
 
   const toggleReady = () => {
-    return !notReady ? <div>
-      <button className="Start-button" onClick={clickReady}>
-        Ready &#x1f44d;
-      </button>
-    </div>
-    : <div>
-    <button className="Start-button" onClick={clickReady}>
-      Ready 
-    </button>
-  </div>
-  }
+    return !notReady ? (
+      <div>
+        <button className="Start-button" onClick={clickReady}>
+          Ready &#x1f44d;
+        </button>
+      </div>
+    ) : (
+      <div>
+        <button className="Start-button" onClick={clickReady}>
+          Ready
+        </button>
+      </div>
+    );
+  };
 
   return (
     <div className="App">
@@ -89,16 +92,23 @@ const App: React.FC = () => {
             <h1>&#x1F4A3; Find My Mines &#x1F4A3;</h1>
             <div>
               {isLogin ? (
-                "NickName  : " + playerName + (isPlayer ? "" : " (spectator)")
+                "Nickname  : " + playerName + (isPlayer ? "" : " (spectator)")
               ) : (
                 <LoginPopup />
               )}
             </div>
             <hr />
           </header>
-          {isLogin ? 
-            (welcome ? <h2>Welcome {playerName}!</h2> : <h2>Timer: {countdown}</h2>)
-            : <p></p>} 
+          {isLogin ? (
+            welcome ? (
+              <h3>Welcome {playerName}!</h3>
+            ) : (
+              <h2>Timer: {countdown}</h2>
+            )
+          ) : (
+            <p></p>
+          )}
+          {winner === "" ? <p></p> : <h2>The winner is: {winner}</h2>}
           {isLogin ? <Score scores={scores} /> : <p></p>}
           {isLogin ? (
             <h3 style={{ background: "lightgrey" }}>
@@ -108,21 +118,13 @@ const App: React.FC = () => {
             <p></p>
           )}
           {isLogin ? (
-            <Board
-              name={playerName}
-              status={playerName === isPlayable}
-            />
+            <Board name={playerName} status={playerName === isPlayable} />
           ) : (
             <h2>Please Login First</h2>
           )}
 
-          {isPlayer ? (
-            toggleReady()
-          ) : (
-            isLogin ? <h2>You are a spectator!</h2>: ""
-          )}
+          {isPlayer ? toggleReady() : ""}
           <p>{timestamp}</p>
-          {winner === "" ? <p></p> : <h2>The winner is: {winner}</h2>}
         </div>
         }
         <div className="App-chat">

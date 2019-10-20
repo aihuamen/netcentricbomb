@@ -13,7 +13,9 @@
   </head>
   <body>
     <div style="text-align: center; margin:50px 0 20px">
-      <button onClick="resetScore();">Reset Score</button>
+      <h1 id="player">Current Player Online :</h1>
+      <button onClick="resetScore();" style="margin: 10px">Reset Score</button>
+      <button onCLick="resetAllUser()" style="margin:10px">Reset Server</button>
     </div>
     <h3 style="text-align: center">Server History</h3>
     <div style="text-align: center" id="history"></div>

@@ -11,7 +11,8 @@ const {
   updateScore,
   resetAll,
   resetScore,
-  randomPlayer
+  randomPlayer,
+  removeAllUser
 } = require("../src/utils/users");
 let bStatus = 1;
 let board = createBoard();
@@ -21,7 +22,7 @@ let player = 0;
 //let turn = 1;
 let bombFound = 0;
 let isClick = false;
-let isReset = false
+let isReset = false;
 
 const express = require("express");
 const socketio = require("socket.io");
@@ -30,7 +31,7 @@ const path = require("path");
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 const publicDirectory = path.join(__dirname, "../public");
 app.use(express.static(publicDirectory));
 
@@ -40,7 +41,7 @@ io.on("connection", socket => {
   socket.on("updatePlayer", () => {
     console.log("Here comes a new challenger");
     setInterval(() => {
-      socket.emit("playerNumber", playerNumber);
+      io.emit("playerNumber", playerNumber);
     }, 1);
   });
 
@@ -78,10 +79,10 @@ io.on("connection", socket => {
     if (player >= 2) {
       //TODO Display a message start!!
       isReset = false;
-      io.emit("gameStart","")
+      io.emit("gameStart", "");
       player = 0;
-      let playable = ""
-      if(name[1] === "") playable = randomPlayer();
+      let playable = "";
+      if (name[1] === "") playable = randomPlayer();
       else playable = name[1];
       io.emit("server", playable);
       console.log(playable);
@@ -97,12 +98,12 @@ io.on("connection", socket => {
   const countDown = playable => {
     let start = 10;
     console.log("start timer");
-    io.emit("server", "start timer");
+    //io.emit("server", "start timer");
     const interval = setInterval(() => {
       if (start < 0.1 || isClick || bombFound === 11 || isReset) {
         isClick = false;
-        isReset = false
-        if(bombFound === 11)  declareWinner()
+        isReset = false;
+        if (bombFound === 11) declareWinner();
         clearInterval(interval);
       }
       io.emit("startCountDown", start.toFixed(1));
@@ -128,17 +129,17 @@ io.on("connection", socket => {
 
   const declareWinner = () => {
     let maxScore = -1;
-    let winner = ""
+    let winner = "";
     const allPlayer = getScore();
     allPlayer.forEach(user => {
-      if(user.score > maxScore){
+      if (user.score > maxScore) {
         maxScore = user.score;
-        winner = user.userName
+        winner = user.userName;
       }
-    })
-    console.log("The winner is: " + winner)
-    io.emit("declareWinner", winner)
-  }
+    });
+    console.log("The winner is: " + winner);
+    io.emit("declareWinner", winner);
+  };
   //
   /* socket.on("setCountDown", name => {
     let start = 10;
@@ -157,7 +158,7 @@ io.on("connection", socket => {
     io.emit("server", "Reset Board");
     board = createBoard();
     resetAll();
-    showScore()
+    showScore();
     bStatus++;
     io.emit("newBoard", bStatus);
   });
@@ -177,7 +178,8 @@ io.on("connection", socket => {
     io.emit("server", "Current player Online  : " + playerNumber);
 
     if (playerNumber < 3) {
-      addUser(name);
+      //addUser(name);
+      addUser({ userName: name, id: socket.id });
       showScore();
     }
     socket.emit("setUsername", [name, true, playerNumber >= 3 ? false : true]);
@@ -187,7 +189,7 @@ io.on("connection", socket => {
     console.log("The box " + pos[0] + " is chosen by " + pos[1]);
     io.emit("server", "The box " + pos[0] + " is chosen by " + pos[1]);
     isClick = true;
-    if (bombFound < 11) {
+    if (bombFound < 12) {
       switchUser(pos[1]);
     }
     io.emit("responseBox", [pos[0], board[pos[0]], pos[1]]);
@@ -198,18 +200,26 @@ io.on("connection", socket => {
     updateScore(userName);
   });
 
+  socket.on("removeAllUser", () => {
+    removeAllUser();
+    bStatus = 1;
+    playerNumber = 0;
+  });
+
   socket.on("disconnect", () => {
+    removeUser(socket.id);
     if (playerNumber > 0) {
       playerNumber = playerNumber - 1;
     }
+
     console.log("Player disconnected");
-    console.log("Current player Online :", playerNumber);
     io.emit("server", "Current player Online :" + playerNumber);
-    socket.emit("playerNumber", playerNumber);
+    io.emit("server", JSON.stringify(getScore()));
+    io.emit("playerNumber", playerNumber);
   });
 });
 
-server.listen(port, () => {
+server.listen(port, "192.168.1.30", () => {
   console.log("Server is up on port :", port);
   io.emit("server", "Server is up on port : " + port);
 });

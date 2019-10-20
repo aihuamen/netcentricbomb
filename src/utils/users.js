@@ -1,14 +1,29 @@
 // SECTION User - Storing the user data , name , score and id
 const users = [];
 
-const addUser = userName => {
-  const user = { userName, score: 0 };
+const addUser = ({ userName, id }) => {
+  const user = { userName, score: 0, id: id };
   users.push(user);
   console.log(user);
   return user;
 };
 
-const removeUser = () => {};
+const removeUser = id => {
+  const index = users.findIndex(user => {
+    return user.id === id;
+  });
+
+  if (index != -1) {
+    return users.splice(index, 1)[0];
+  }
+  console.log(users);
+};
+
+const removeAllUser = () => {
+  console.log("remove All");
+  users.splice(0, users.length);
+  console.log(users);
+};
 
 const randomPlayer = () => {
   if (Math.random() > 0.5) return users[0].userName;
@@ -44,10 +59,11 @@ const resetAll = () => {
 };
 module.exports = {
   addUser,
-  removeUser,
   getScore,
   updateScore,
   resetScore,
   resetAll,
-  randomPlayer
+  randomPlayer,
+  removeAllUser,
+  removeUser
 };

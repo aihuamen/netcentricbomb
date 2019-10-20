@@ -1,6 +1,6 @@
 import openSocket from "socket.io-client";
 import { User } from "./components/App";
-const socket = openSocket("http://192.168.1.41:8000");
+const socket = openSocket("http://192.168.1.30:3000");
 
 type Callback<T = any> = (err: any, result: T) => void;
 
@@ -10,7 +10,7 @@ export const subscribeToTimer = (callback: Callback<string>) => {
 };
 
 export const emitCountDown = (name: string, winner: string) => {
-  socket.emit("setCountDown", [name,winner]);
+  socket.emit("setCountDown", [name, winner]);
 };
 
 export const playerReady = (name: string) => {
@@ -92,9 +92,9 @@ export const onScore = (callback: Callback<User[]>) => {
 };
 
 export const gameStart = (callback: Callback<string>) => {
-  socket.on("gameStart", (foo: string) => callback(null, foo))
-}
+  socket.on("gameStart", (foo: string) => callback(null, foo));
+};
 
 export const onWinner = (callback: Callback<string>) => {
-  socket.on("declareWinner", (winner: string) => callback(null, winner))
-}
+  socket.on("declareWinner", (winner: string) => callback(null, winner));
+};
