@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "./Box";
 import {
   onResetBoard,
-  emitResetBoard,
-  emitUpdateRound,
-  onUpdateRound
 } from "../api";
 import "../css/Board.css";
 
@@ -15,6 +12,12 @@ interface TheBoard {
 
 export const Board: React.FC<TheBoard> = ({ name, status }) => {
   const [round, setRound] = useState(1);
+
+  useEffect(() => {
+    onResetBoard((err: any, round: number) => {
+      setRound(round)
+    })
+  })
 
   return (
     <div>
@@ -31,14 +34,6 @@ export const Board: React.FC<TheBoard> = ({ name, status }) => {
               ))}
           </div>
         ))}
-      <button
-        className="reset"
-        onClick={() => {
-          emitResetBoard();
-        }}
-      >
-        Reset
-      </button>
     </div>
   );
 };

@@ -27,7 +27,7 @@ export const Box: React.FC<TheBox> = ({ pos = 69, user, pStatus }) => {
         setPic(resPic);
       }
     });
-  }, [setPic]);
+  }, [setPic,pos,user]);
 
   const togglePic = () => {
     if(pStatus && pic===process.env.PUBLIC_URL + "image/unClick"){

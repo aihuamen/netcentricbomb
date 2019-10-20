@@ -18,9 +18,10 @@ let board = createBoard();
 let playerNumber = 0;
 let chatRecord = [];
 let player = 0;
-let turn = 1;
+//let turn = 1;
 let bombFound = 0;
 let isClick = false;
+let isReset = false
 
 const express = require("express");
 const socketio = require("socket.io");
@@ -71,13 +72,15 @@ io.on("connection", socket => {
 
   //NOTE Check if both player is ready
   socket.on("setCountDown", name => {
-    io.emit("server", name + "  is ready");
-    console.log(name + "  is ready");
+    io.emit("server", name[0] + "  is ready");
+    console.log(name[0] + "  is ready");
     player = player + 1;
     if (player >= 2) {
       //TODO Display a message start!!
       player = 0;
-      const playable = randomPlayer();
+      let playable = ""
+      if(name[1] === "") playable = randomPlayer();
+      else playable = name[1];
       io.emit("server", playable);
       console.log(playable);
       startCountDown(playable);
@@ -93,19 +96,23 @@ io.on("connection", socket => {
     let start = 10;
     console.log("start timer");
     const interval = setInterval(() => {
-      if (start < 1 || isClick || bombFound === 11) {
+      if (start < 0.1 || isClick || bombFound === 11 || isReset) {
         isClick = false;
+        isReset = false
+        if(bombFound === 11) {
+          declareWinner()
+        }
         clearInterval(interval);
       }
-      io.emit("startCountDown", start);
-      console.log(start);
-      start--;
-      if (start === -1 && turn < 36) {
-        turn = turn + 1;
-        console.log("turn: " + turn);
+      io.emit("startCountDown", start.toFixed(1));
+      //console.log(start.toFixed(1));
+      start = start - 0.1;
+      if (start < 0) {
+        //turn = turn + 1;
+        //console.log("turn: " + turn);
         switchUser(playable);
       }
-    }, 1000);
+    }, 100);
   };
 
   const switchUser = playable => {
@@ -117,6 +124,20 @@ io.on("connection", socket => {
       }
     });
   };
+
+  const declareWinner = () => {
+    let maxScore = -1;
+    let winner = ""
+    const allPlayer = getScore();
+    allPlayer.forEach(user => {
+      if(user.score > maxScore){
+        maxScore = user.score;
+        winner = user.userName
+      }
+    })
+    console.log("The winner is: " + winner)
+    io.emit("declareWinner", winner)
+  }
   //
   /* socket.on("setCountDown", name => {
     let start = 10;
@@ -128,12 +149,14 @@ io.on("connection", socket => {
   });
  */
   socket.on("resetBoard", () => {
-    playerNumber = 0;
-
+    //playerNumber = 0;
+    bombFound = 0;
+    isReset = true;
     console.log("reset board");
     io.emit("server", "Reset Board");
     board = createBoard();
     resetAll();
+    showScore()
     bStatus++;
     io.emit("newBoard", bStatus);
   });

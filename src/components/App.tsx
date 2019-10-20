@@ -6,9 +6,11 @@ import {
   updatePlayer,
   onUsername,
   onScore,
+  onResetBoard,
   emitCountDown,
   onCountDown,
-  onPlayable
+  onPlayable,
+  onWinner
 } from "../api";
 import { Board } from "./Board";
 import { Chat } from "./Chat";
@@ -29,6 +31,9 @@ const App: React.FC = () => {
   const [isPlayer, setPlayerStatus] = useState(false);
   const [isPlayable, setPlayable] = useState("null");
   const [scores, setScores] = useState<User[]>([]);
+  const [winner, setWinner] = useState("")
+  const [notReady, setReady] = useState(true)
+  const [welcome, setWelcome] = useState(true)
 
   useEffect(() => {
     onUsername((err: any, name: Array<any>) => {
@@ -42,15 +47,26 @@ const App: React.FC = () => {
     onScore((err: any, score: User[]) => setScores(score));
     onPlayable((err: any, playable: string) => {
       console.log(playable);
+      setWelcome(false)
       setPlayable(playable);
     });
     onCountDown((err: any, count: number) => {
       setCountdown(count);
     });
+    onWinner((err: any, winner: string) => {
+      setWinner(winner);
+      setReady(true);
+    })
+    onResetBoard((err: any, round: number) => {
+      setReady(true);
+    })
   }, [setTimestamp, setCountdown, setPlayable]);
 
   const clickReady = () => {
-    emitCountDown(playerName);
+    if(notReady){
+      emitCountDown(playerName, winner);
+      setReady(false);
+    }
   };
 
   return (
@@ -68,7 +84,9 @@ const App: React.FC = () => {
             </div>
             <hr />
           </header>
-          {isLogin ? <h2>Timer: {countdown}</h2> : <p></p>}
+          {isLogin ? 
+            (welcome ? <h2>Welcome {playerName}!</h2> : <h2>Timer: {countdown}</h2>)
+            : <p></p>} 
           {isLogin ? <Score scores={scores} /> : <p></p>}
           {isLogin ? (
             <h3 style={{ background: "lightgrey" }}>
@@ -80,7 +98,7 @@ const App: React.FC = () => {
           {isLogin ? (
             <Board
               name={playerName}
-              status={isPlayer && playerName === isPlayable}
+              status={playerName === isPlayable}
             />
           ) : (
             <h2>Please Login First</h2>
@@ -91,9 +109,10 @@ const App: React.FC = () => {
               Ready
             </button>
           ) : (
-            <p></p>
+            isLogin ? <h2>You are a spectator!</h2>: ""
           )}
           <p>{timestamp}</p>
+          {winner === "" ? <p></p> : <p>The winner is: {winner}</p>}
         </div>
         }
         <div className="App-chat">
