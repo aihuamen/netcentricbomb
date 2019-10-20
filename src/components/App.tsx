@@ -55,7 +55,6 @@ const App: React.FC = () => {
     });
     onWinner((err: any, winner: string) => {
       setWinner(winner);
-      setReady(true);
     })
     onResetBoard((err: any, round: number) => {
       setReady(true);
@@ -68,6 +67,19 @@ const App: React.FC = () => {
       setReady(false);
     }
   };
+
+  const toggleReady = () => {
+    return !notReady ? <div>
+      <button className="Start-button" onClick={clickReady}>
+        Ready &#x1f44d;
+      </button>
+    </div>
+    : <div>
+    <button className="Start-button" onClick={clickReady}>
+      Ready 
+    </button>
+  </div>
+  }
 
   return (
     <div className="App">
@@ -105,14 +117,12 @@ const App: React.FC = () => {
           )}
 
           {isPlayer ? (
-            <button className="Start-button" onClick={clickReady}>
-              Ready
-            </button>
+            toggleReady()
           ) : (
             isLogin ? <h2>You are a spectator!</h2>: ""
           )}
           <p>{timestamp}</p>
-          {winner === "" ? <p></p> : <p>The winner is: {winner}</p>}
+          {winner === "" ? <p></p> : <h2>The winner is: {winner}</h2>}
         </div>
         }
         <div className="App-chat">

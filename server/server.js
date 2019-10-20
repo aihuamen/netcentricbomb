@@ -77,6 +77,8 @@ io.on("connection", socket => {
     player = player + 1;
     if (player >= 2) {
       //TODO Display a message start!!
+      isReset = false;
+      io.emit("gameStart","")
       player = 0;
       let playable = ""
       if(name[1] === "") playable = randomPlayer();
@@ -95,13 +97,12 @@ io.on("connection", socket => {
   const countDown = playable => {
     let start = 10;
     console.log("start timer");
+    io.emit("server", "start timer");
     const interval = setInterval(() => {
       if (start < 0.1 || isClick || bombFound === 11 || isReset) {
         isClick = false;
         isReset = false
-        if(bombFound === 11) {
-          declareWinner()
-        }
+        if(bombFound === 11)  declareWinner()
         clearInterval(interval);
       }
       io.emit("startCountDown", start.toFixed(1));

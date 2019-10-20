@@ -1,6 +1,6 @@
 import openSocket from "socket.io-client";
 import { User } from "./components/App";
-const socket = openSocket("http://192.168.56.1:8000");
+const socket = openSocket("http://192.168.1.41:8000");
 
 type Callback<T = any> = (err: any, result: T) => void;
 
@@ -90,6 +90,10 @@ export const getScore = () => {
 export const onScore = (callback: Callback<User[]>) => {
   socket.on("onScore", (score: User[]) => callback(null, score));
 };
+
+export const gameStart = (callback: Callback<string>) => {
+  socket.on("gameStart", (foo: string) => callback(null, foo))
+}
 
 export const onWinner = (callback: Callback<string>) => {
   socket.on("declareWinner", (winner: string) => callback(null, winner))
