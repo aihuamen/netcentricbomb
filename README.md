@@ -1,3 +1,7 @@
 # NetcentricBomb
-Test socket + frontend of this shitty game
 
+A very fun multiplayer game to play with.
+
+Front-end: ReactJS
+
+Server: Socket.IO
